@@ -167,14 +167,21 @@ class MoveEmdBase extends Command {
 
                 foreach($invoices_src as $invoice)
                 {
+                    foreach($invoice as &$value)
+                    {
+                        $value = mb_convert_encoding($value, "UTF-8", "Windows-1252");
+                    }
+
                     $active_invoice_ids[$invoice->InvoiceNumber_EMD] = 1;
 
                     // write as acid queue
 
                     if(!isset($refs[$invoice->InvoiceNumber_EMD]))
                     {
-                        //this is totally new new invoice
+                        //convert to UTF 8
+                        $arrinvoice =  (array)$invoice;
 
+                        //this is totally new new invoice
                         $data = array(
                                         'emd_invoice_number'=>$invoice->InvoiceNumber_EMD,
                                         'emd_invoice_id'=>$invoice->Invoice_ID,
@@ -200,6 +207,7 @@ class MoveEmdBase extends Command {
                     }
                       else if(($refs[$invoice->InvoiceNumber_EMD] != md5($invoice->InvoiceUpdatedAt) ) || ($payments[$invoice->InvoiceNumber_EMD] != md5($invoice->PaymentTotal)))
                     {
+
                         //this needs to be updated
                         $data = array(
                                         'todo'=>'update',
