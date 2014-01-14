@@ -40,7 +40,7 @@ Class MoveEmdBillTrac extends MoveEmdBase{
                     //looks like torn ticket
                     //ts clean is
                     $this->error('Billtrac ticket ' . $id . ' is shredded, removing remnants');
-                    if( \Config::get('emdtobilltrac.db_delete'))
+                    if( \Config::get('app.emdtobilltrac.db_delete'))
                     {
                         DB::connection('billtrac')->table("ticket_custom")->whereRaw("`ticket`='" . $id . "'")->delete();
                     }
@@ -66,7 +66,7 @@ Class MoveEmdBillTrac extends MoveEmdBase{
            $this->error("billtrac ticket # $res already exists for EMD invoice # " . $invoice->InvoiceNumber_EMD);
 
            //update so
-           if( \Config::get('emdtobilltrac.db_write'))
+           if( \Config::get('app.emdtobilltrac.db_write'))
            {
                DB::table($this->keytable)->where('emd_invoice_number',$invoice->InvoiceNumber_EMD)->update(array( 'todo'=>'done','ext_key'=>$res));
            }
@@ -140,7 +140,7 @@ Class MoveEmdBillTrac extends MoveEmdBase{
                  $data['owner'] = $owner;
              }
 
-             if( \Config::get('emdtobilltrac.db_write'))
+             if( \Config::get('app.emdtobilltrac.db_write'))
              {
                   DB::connection('billtrac')->table('ticket')->insert( $data );
              }
@@ -176,7 +176,7 @@ Class MoveEmdBillTrac extends MoveEmdBase{
                                        'value'=>$value
                                        );
 
-                  if( \Config::get('emdtobilltrac.db_write'))
+                  if( \Config::get('app.emdtobilltrac.db_write'))
                   {
                       DB::connection('billtrac')->table('ticket_custom')->insert( $data );
                   }
@@ -188,7 +188,7 @@ Class MoveEmdBillTrac extends MoveEmdBase{
 
             DB::connection('billtrac')->getPdo()->commit();
 
-            if( \Config::get('emdtobilltrac.db_write'))
+            if( \Config::get('app.emdtobilltrac.db_write'))
             {
                 return DB::table($this->keytable)->where('id',$refid)->update(array( 'todo'=>'done', 'ext_key'=>$id));
             }
@@ -212,7 +212,7 @@ public function _update($refid, $invoice, $charges=array(), $payments=array())
            $this->error("billtract ticket does not yet exists for EMD invoice # " . $invoice->InvoiceNumber_EMD);
            //update so
 
-           if( \Config::get('emdtobilltrac.db_write'))
+           if( \Config::get('app.emdtobilltrac.db_write'))
            {
                DB::table($this->keytable)->where('emd_invoice_number',$invoice->InvoiceNumber_EMD)->update(array( 'todo'=>'insert'));
            }
@@ -283,7 +283,7 @@ public function _update($refid, $invoice, $charges=array(), $payments=array())
                  $data['owner'] = $owner;
              }
 
-             if( \Config::get('emdtobilltrac.db_write'))
+             if( \Config::get('app.emdtobilltrac.db_write'))
              {
                  DB::connection('billtrac')->table('ticket')->where('id',$billtracid)->update( $data );
              }
@@ -311,7 +311,7 @@ public function _update($refid, $invoice, $charges=array(), $payments=array())
              foreach($importMap as $key=>$value)
             {
                 $sql = "INSERT INTO `ticket_custom` ( `ticket`,`name`,`value` ) VALUES ( '$billtracid', '$key', '$value' ) ON DUPLICATE KEY UPDATE `value` = '$value'";
-                if( \Config::get('emdtobilltrac.db_write'))
+                if( \Config::get('app.emdtobilltrac.db_write'))
                 {
                     DB::connection('billtrac')->statement($sql);
                 }
@@ -323,7 +323,7 @@ public function _update($refid, $invoice, $charges=array(), $payments=array())
 
             DB::connection('billtrac')->getPdo()->commit();
 
-            if( \Config::get('emdtobilltrac.db_write'))
+            if( \Config::get('app.emdtobilltrac.db_write'))
             {
                 return DB::table($this->keytable)->where('id',$refid)->update(array( 'todo'=>'done', 'ext_key'=>$billtracid));
             }
