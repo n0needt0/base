@@ -275,8 +275,11 @@ class UserController extends BaseController {
 
 		   $radius = new Radius($rserver, $rsecret);
 
+		   Log::info("authenticating: " . $input['email']);
+
            if ($radius->AccessRequest($input['email'], $input['password']))
            {
+               Log::info("User " . $input["email"] . " authenticated");
                // user authenticated against radius
                $input['email'] .= '@' . Config::get('authentication.domain');
 
@@ -301,6 +304,10 @@ class UserController extends BaseController {
 				        return Redirect::to('users/login')->withInput();
                    }
                }
+           }
+            else
+           {
+               Log::info("User " . $input["email"] . " NOT authenticated");
            }
        }
 
