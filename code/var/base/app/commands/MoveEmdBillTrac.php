@@ -155,6 +155,7 @@ Class MoveEmdBillTrac extends MoveEmdBase{
 
              $importMap = array(
                                        'billdate'=>$invoice->InvoiceCreatedAt,
+                                       'emdstatus'=>$invoice->InvoiceStatus_Code,
                                        'maildate'=>$invoice->InvoiceCreatedAt,
                                        'dosdate'=>$dos_first,
                                        'billamount'=>number_format($invoice->InvoiceTotal,2),
@@ -295,6 +296,7 @@ public function _update($refid, $invoice, $charges=array(), $payments=array())
              $this->info("updated ticket number $billtracid");
 
               $importMap = array(
+                                       'emdstatus'=>$invoice->InvoiceStatus_Code,
                                        'billdate'=>$invoice->InvoiceCreatedAt,
                                        'maildate'=>$invoice->InvoiceCreatedAt,
                                        'dosdate'=>$dos_first,
