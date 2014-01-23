@@ -53,7 +53,7 @@
         </tr>
         <tr>
             <th><label>Status_Code:</label></th><td>{{ $header['InvoiceStatus_Code']}}</td>
-            <th><label>Statsu_Description#:</label></th><td>{{ $header['InvoiceStatus_Description']}}</td>
+            <th><label>Status_Description#:</label></th><td>{{ $header['InvoiceStatus_Description']}}</td>
         </tr>
     </tbody>
 </table>
