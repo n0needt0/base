@@ -1,5 +1,4 @@
 @extends('layouts.jquerymobile')
-
 {{-- Web site Title --}}
 @section('title')
 Log In
@@ -9,9 +8,11 @@ Log In
 {{-- Content --}}
 @section('content')
 <h3>Login</h3>
+@if(Config::get('authentication.radius') == true )
 <div class="ui-body alert-info">
 If you use email login, use password, otherwise use RSA and token...
 </div>
+@endif
 <div class="well">
 <form action="{{ URL::to('users/login') }}" method="post" data-ajax="false">
     {{ Form::token(); }}
@@ -20,19 +21,26 @@ If you use email login, use password, otherwise use RSA and token...
          @if($errors->has('email'))
             <div class="alert alert-danger"> {{$errors->first('email')}}</div>
          @endif
+         @if(Config::get('authentication.radius') == true )
          <input name='password' type="password" placeholder="Password or RSA Code" class="form-control">
+         @endif
+
+         @if(Config::get('authentication.radius') == false )
+         <input name='password' type="password" placeholder="Password" class="form-control">
+         @endif
+
          @if($errors->has('password'))
          <div class="alert alert-danger">{{$errors->first('password')}}</div>
          @endif
-         <input type="submit" data-theme="{{Config::get('app.jqm_theme')}}" value="Log In"> </br>
+         <input type="submit" data-theme="{{Config::get('app.jqm_theme')}}" value="Log In">
+         <a href="{{ URL::to('users/register') }}" data-rel="dialog" data-role="button">Register</a>
+         </br>
      </fieldset>
      <div data-role="controlgroup" data-type="horizontal" align='center'>
          <input type="checkbox" name="rememberMe" id="rememberMe" value="1"/>
-	     <label for="rememberMe">Remember Me</label>
-		 <a href="{{ URL::to('users/resetpassword') }}" data-rel="dialog" data-role="button">Forgot Password?</a>
-         <a href="{{ URL::to('users/register') }}" data-rel="dialog" data-role="button">Register</a>
+	     <label for="rememberMe" class="ui-btn ui-mini">auto login</label>
+		 <a href="{{ URL::to('users/resetpassword') }}" data-rel="dialog" data-role="button">lost password?</a>
      </div>
 </form>
-
 </div>
 @stop

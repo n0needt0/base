@@ -13,3 +13,4 @@
 Artisan::add(new MoveEmdBillTrac);
 Artisan::add(new MoveEmdNetsuite);
 Artisan::add(new QaEmd);
+Artisan::add(new DayEmd);

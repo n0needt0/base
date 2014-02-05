@@ -187,7 +187,7 @@ class UserController extends BaseController {
 			}
 			catch (Cartalyst\Sentry\Users\UserExistsException $e)
 			{
-			    Session::flash('error', 'User already exists.');
+			    Session::flash('error', 'User already exists. <a href ="/users/resetpassword" data-theme="b" data-rel="dialog" data-role="button"> reset password </a>');
 			    return Redirect::to('users/register')->withErrors($v)->withInput();
 			}
 
@@ -757,7 +757,8 @@ class UserController extends BaseController {
 				    {
     			        // User saved
 				        Session::flash('success', 'Your password has been changed.');
-						return Redirect::to('users/show/'. $id);
+						Sentry::logout();
+		                return Redirect::to('/users/login');
 				    }
 				    else
 				    {

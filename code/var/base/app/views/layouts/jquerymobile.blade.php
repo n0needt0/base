@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="shortcut icon" href="favicon.ico">
-	<title>
-		    @section('title')
-		    @show
-	</title>
+<link rel="shortcut icon" href="favicon.ico">
+<title>@yield('title', isset($title) ? $title : "title")</title>
 <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
 <meta HTTP-EQUIV="Expires" CONTENT="-1">
 <meta charset="utf-8">
@@ -29,14 +26,16 @@
 <meta http-equiv="cleartype" content="on">
 
 <!-- jQuery Mobile CSS bits -->
-<link rel="stylesheet" href="/assets/vendor/jquery.mobile/css/jquery.mobile-1.3.0.min.css" />
+<link rel="stylesheet" href="//code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css" />
 
 <!-- jQuery Mobile CSS bits -->
 <link rel="stylesheet" href="/assets/css/custom.css" />
 
 <!-- js libs-->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="/assets/vendor/jquery.mobile/jquery.mobile-1.3.0.min.js"></script>
+<script src="//code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script>
+<script src="/assets/vendor/underscore.js"></script>
+<script src="/assets/vendor/json2.js"><</script>
 <script src="/assets/vendor/phonegap/ios-orientationchange-fix.min.js"></script>
 <script src="/assets/vendor/phonegap/cordova-2.5.0.js"></script>
 
@@ -47,10 +46,6 @@
 <!-- List of JS libs we use -->
 
 <script>
-        $(document).ready( function () {
-            $.mobile.ajaxEnabled = false;
-        });
-
         var Conf = Conf || {};
 
         Conf.server_name = '<?php echo $_SERVER['SERVER_NAME']?>';
@@ -76,43 +71,23 @@
                console.log(msg);
            }
         }
-
-        var jsLibs = {
-        	        // Libraries
-        	        jquery: "{{Config::get('app.url')}}/assets/vendor/jquery/jquery-1.8.2-min",
-        	        jquerymobile: "{{Config::get('app.url')}}/assets/vendor/jquery.mobile/jquery.mobile-1.3.0.min",
-        	        iosorientation: "{{Config::get('app.url')}}/assets/vendor/phonegap/ios-orientationchange-fix.min",
-        	        cordova: "{{Config::get('app.url')}}/assets/vendor/phpnegap/cordova-2.5.0",
-        	        underscore: "{{Config::get('app.url')}}/assets/vendor/underscore",
-        	        backbone: "{{Config::get('app.url')}}/assets/vendor/backbone",
-        	        json2: "{{Config::get('app.url')}}/assets/vendor/json2",
-        	        // Shim Plugin
-        	        use: "{{Config::get('app.url')}}/assets/vendor/require/plugins/use",
-        	        async: "{{Config::get('app.url')}}/assets/vendor/require/plugins/async"
-        	      };
-
     </script>
+
+<!-- runtimejs -->
+    @yield('runtimejs')
+<!-- runtimejs -->
+
 </head>
 <body>
 
-<script>
-var head= document.getElementsByTagName('head')[0];
-var script= document.createElement('script');
-script.setAttribute('type', 'text/javascript');
-script.setAttribute('src', '/assets/vendor/require/require.js');
-script.setAttribute('data-main', "/assets/js/home.config");
-head.appendChild(script);
-</script>
-
-<div data-role="page">
+<div data-role="page" id="@yield('pageid', isset($pageid) ? $pageid : Request::path())" data-cache="false">
 	<div data-role="header" data-theme="{{Config::get('app.jqm_theme')}}">
 		<h1>{{Config::get('app.app_name')}}</h1>
 		<a href="{{ URL::to('') }}" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
 		@if (Sentry::check())
-    		<a href="#popupMenu" data-rel="popup" data-role="button" data-icon="gear">{{ Sentry::getUser()->email }}</a>
-			<div data-role="popup" id="popupMenu" data-theme="a">
+    		<a href="#popupAcc" data-rel="popup" data-role="button" data-icon="gear">{{ Sentry::getUser()->email }}</a>
+			<div data-role="popup" id="popupAcc" data-theme="b">
 				<ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="{{Config::get('app.jqm_theme')}}">
-					<li data-role="divider" data-theme="a">Options</li>
 					@if (Sentry::check() && Sentry::getUser()->hasAccess('admin'))
 							<li {{ (Request::is('users*') ? 'class="active"' : '') }}><a href="{{ URL::to('/users') }}">Users</a></li>
 							<li {{ (Request::is('groups*') ? 'class="active"' : '') }}><a href="{{ URL::to('/groups') }}">Groups</a></li>

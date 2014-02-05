@@ -1,6 +1,6 @@
 <?php
 
 return array(
-                'radius'=>true,
+                'radius'=>false,
                 'domain'=>'helppain.net'
                 );

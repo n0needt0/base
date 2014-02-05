@@ -109,10 +109,10 @@ head.appendChild(script);
 		<h1>{{Config::get('app.app_name')}}</h1>
 		<a href="{{ URL::to('') }}" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
 		@if (Sentry::check())
-    		<a href="#popupMenu" data-rel="popup" data-role="button" data-icon="gear">{{ Sentry::getUser()->email }}</a>
-			<div data-role="popup" id="popupMenu" data-theme="a">
+    		<a href="#popupAcc" data-rel="popup" data-role="button" data-icon="gear">{{ Sentry::getUser()->email }}</a>
+			<div data-role="popup" id="popupAcc">
 				<ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="{{Config::get('app.jqm_theme')}}">
-					<li data-role="divider" data-theme="a">Options</li>
+					<li data-role="divider" >Options</li>
 					@if (Sentry::check() && Sentry::getUser()->hasAccess('admin'))
 							<li {{ (Request::is('users*') ? 'class="active"' : '') }}><a href="{{ URL::to('/users') }}">Users</a></li>
 							<li {{ (Request::is('groups*') ? 'class="active"' : '') }}><a href="{{ URL::to('/groups') }}">Groups</a></li>

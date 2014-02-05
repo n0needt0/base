@@ -12,9 +12,13 @@
 */
 
 
-Route::get('/', 'HomeController@showWelcome');
+Route::get('/', 'CronratController@getIndex');
 
 Route::controller('users', 'UserController');
+
+Route::controller('cronrat', 'CronratController');
+
+Route::controller('verify', 'VerifyController');
 
 Route::resource('groups', 'GroupController');
 
