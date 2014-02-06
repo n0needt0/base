@@ -3,6 +3,8 @@
 return array(
 /************************************************************/
 /*******************APP SPECIFIC***************************/
+'copyright' => 'My Computer',
+
 'emdtobilltrac'=>array(
     'alpha_owner'=>array(
                             array('start'=>'a', 'end'=>'z', 'owner'=>'jalvarado')
