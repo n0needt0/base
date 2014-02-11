@@ -3,6 +3,8 @@
 return array(
 /************************************************************/
 /*******************APP SPECIFIC***************************/
+'copyright' => 'Helppain.net',
+
 'emdtobilltrac'=>array(
     'alpha_owner'=>array(
                             array('start'=>'a', 'end'=>'z', 'owner'=>'jalvarado')
