@@ -6,5 +6,5 @@ return array(
                                 'location'=>'Organization_Name',
                                 'service'=>'Invoice_Comment'
                                 )
-  );
+  )
 );
