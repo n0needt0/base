@@ -12,8 +12,18 @@
 
 .invoiceheader{ background-color:#b0c4de;
                     }
-
 </style>
+
+<?php
+function buildImgUrl($img)
+{
+    if($img != '0000000000')
+    {
+        return "<a href='imgserver/$img' target='_New'>IMG</a>";
+    }
+    return '----';
+}
+?>
 
 <div id='invoicecontainer'>
 <div id='invoiceheader' class='wrap invoiceheader'>
@@ -93,20 +103,24 @@
 <table class="properties">
     <tbody>
         <tr>
-        <th>Date</th>
+        <th>CheckDate</th>
         <th>Check</th>
+        <th>CheckImg</th>
         <th>Payment$</th>
         <th>Adjustment$</th>
         <th>Comments</th>
+        <th>EOBImg</th>
         </tr>
 
         @foreach ($payments as $payment)
             <tr>
-                <td>{{$payment['Payment_DatePosted']}}</td>
+                <td>{{$payment['Payment_DateCheck']}}</td>
                 <td>{{$payment['Payment_CheckNo']}}</td>
+                <td>{{ buildImgUrl($payment['PaymentSource_CheckImageDoc_ID'])}}</td>
                 <td>{{number_format($payment['Payment_Payment'],2)}}</td>
                 <td>{{number_format($payment['Payment_Adjustment'],2)}}</td>
                 <td>{{$payment['Payment_PaymentComment']}}</td>
+                <td>{{buildImgUrl($payment['PaymentSource_EOBImageDoc_ID'])}}</td>
             </tr>
         @endforeach
     </tbody>
