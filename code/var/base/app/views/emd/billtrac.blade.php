@@ -19,7 +19,7 @@ function buildImgUrl($img)
 {
     if($img != '0000000000')
     {
-        return "<a href='imgserver/$img' target='_New'>IMG</a>";
+        return "<a href='http://10.10.0.170/ZZZZZ00002/$img.TIF' target='_New'>IMG</a>";
     }
     return '----';
 }
