@@ -19,7 +19,7 @@ function buildImgUrl($img)
 {
     if($img != '0000000000')
     {
-        return "<a href='http://10.10.0.170/ZZZZZ00002/$img.TIF' target='_New'>IMG</a>";
+        return "<a href='http://10.10.0.170/ZZZZZ00002/$img' target='_New'>IMG</a>";
     }
     return '----';
 }
@@ -116,11 +116,11 @@ function buildImgUrl($img)
             <tr>
                 <td>{{$payment['Payment_DateCheck']}}</td>
                 <td>{{$payment['Payment_CheckNo']}}</td>
-                <td>{{ buildImgUrl($payment['PaymentSource_CheckImageDoc_ID'])}}</td>
+                <td>{{ buildImgUrl($payment['CheckImage'])}}</td>
                 <td>{{number_format($payment['Payment_Payment'],2)}}</td>
                 <td>{{number_format($payment['Payment_Adjustment'],2)}}</td>
                 <td>{{$payment['Payment_PaymentComment']}}</td>
-                <td>{{buildImgUrl($payment['PaymentSource_EOBImageDoc_ID'])}}</td>
+                <td>{{buildImgUrl($payment['EOBImage'])}}</td>
             </tr>
         @endforeach
     </tbody>
