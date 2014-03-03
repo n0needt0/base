@@ -210,12 +210,12 @@ class QaEmd extends Command {
 
         if($payment->Payment_DayPosted_DAY > $today)
         {
-            $this->log_qa_db($invoice,"Payment Posted Date is in the future",'all');
+            $this->log_qa_db($payment,"Payment Posted Date is in the future",'all');
         }
 
         if($payment->Payment_DateCheck_DAY > $today)
         {
-            $this->log_qa_db($invoice,"Payment Check Date is in the future",'all');
+            $this->log_qa_db($payment,"Payment Check Date is in the future",'all');
         }
     }
 }
