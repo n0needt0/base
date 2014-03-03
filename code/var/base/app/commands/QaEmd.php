@@ -181,7 +181,7 @@ class QaEmd extends Command {
             $this->log_qa_db($invoice, "Payment amount is greater than Invoice due amount!",'netsuite');
         }
 
-        if(($invoice->InvoiceseStatus_Code == 'PAID') && (int($invoice->InvoiceTotal) > int($invoice->PaymentTotal)))
+        if(($invoice->InvoicesStatus_Code == 'PAID') && (int($invoice->InvoiceTotal) > int($invoice->PaymentTotal)))
         {
             $this->log_qa_db($invoice, "Invoice closed with outstanding balance. Please use write off codes" , 'warning');
         }
