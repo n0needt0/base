@@ -100,13 +100,22 @@ class QaEmd extends Command {
         $this->errors = array();
 
         try{
-                $invoices = DB::connection('emds')->table("VIEW_Export_InvoiceIndex")->get();
+                $invoices = DB::connection('emds')->table("VIEW_API_InvoiceIndex")->get();
 
-                $this->info('Checking ..');
+                $this->info('Checking Invoices..');
 
                 foreach($invoices as $invoice)
                 {
                     $this->check_invoice($invoice);
+                }
+
+               $payments = DB::connection('emds')->table("VIEW_API_PaymentIndex")->get();
+
+                $this->info('Checking Payments..');
+
+                foreach($payments as $payment)
+                {
+                    $this->check_payment($payment);
                 }
 
                 $data = array('errors'=>$this->errors,'valid_services'=>$this->available_services);
@@ -155,6 +164,13 @@ class QaEmd extends Command {
 
     protected function check_invoice($invoice)
     {
+        $today = date('Ymd', time());
+
+        if($invoice->Invoice_DAY > $today)
+        {
+            $this->log_qa_db($invoice,"Invoice Date is in the future",'all');
+        }
+
         if(empty($invoice->Invoice_Comment))
         {
             $this->log_qa_db($invoice,"Service Empty",'all');
@@ -185,6 +201,21 @@ class QaEmd extends Command {
                     $this->log_qa_db($invoice, "Invoiced for wrong service $k for $ " . number_format($invoice->InvoiceTotal,2), 'netsuite');
                 }
             }
+        }
+    }
+
+    protected function check_payment($payment)
+    {
+        $today = date('Ymd', time());
+
+        if($payment->Payment_DayPosted_DAY > $today)
+        {
+            $this->log_qa_db($invoice,"Payment Posted Date is in the future",'all');
+        }
+
+        if($payment->Payment_DateCheck_DAY > $today)
+        {
+            $this->log_qa_db($invoice,"Payment Check Date is in the future",'all');
         }
     }
 }
