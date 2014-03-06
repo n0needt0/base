@@ -189,8 +189,8 @@ class MoveEmdBase extends Command {
                                         'invoice' => json_encode((array)$invoice),
                                         'charges' => json_encode((array)$this->getCharges($invoice->Invoice_ID)),
                                         'payments' => json_encode((array)$this->getPayments($invoice->Invoice_ID)),
-                                        'timekey' => md5($invoice->InvoiceUpdatedAt),
-                                        'paymentkey' => md5($invoice->PaymentUpdatedAt),
+                                        'timekey' => md5($invoice->InvoiceUpdatedAt . $invoice->PaymentUpdatedAt),
+                                        'paymentkey' => md5($invoice->PaymentUpdatedAt . $invoice->PaymentUpdatedAt),
                                         'created_at'=>date('Y-m-d H:i:s', time())
                                     );
 
@@ -214,8 +214,8 @@ class MoveEmdBase extends Command {
                                         'invoice' => json_encode((array)$invoice),
                                         'charges' => json_encode((array)$this->getCharges($invoice->Invoice_ID)),
                                         'payments' => json_encode((array)$this->getPayments($invoice->Invoice_ID)),
-                                        'timekey' => md5($invoice->InvoiceUpdatedAt),
-                                        'paymentkey' => md5($invoice->PaymentTotal)
+                                        'timekey' => md5($invoice->InvoiceUpdatedAt . $invoice->PaymentUpdatedAt),
+                                        'paymentkey' => md5($invoice->PaymentTotal . $invoice->PaymentUpdatedAt)
                                     );
 
                         if( ('netsuite' == $this->to) && ((int)$invoice->PaymentTotal > 0))
