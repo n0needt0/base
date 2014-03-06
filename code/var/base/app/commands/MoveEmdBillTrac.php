@@ -153,6 +153,15 @@ Class MoveEmdBillTrac extends MoveEmdBase{
 
              $this->info("created ticket number $id");
 
+             $emdimage = false;
+
+             $respmt = DB::connection('emds')->select("select * from VIEW_API_PaymentIndex where Invoice_ID = '" . $invoice->Invoice_ID . "'AND (CheckImage <> '0000000000' or EOBImage <> '0000000000')");
+
+             foreach($respmt as $r)
+             {
+                $emdimage = true;
+             }
+
              $importMap = array(
                                        'billdate'=>$invoice->InvoiceCreatedAt,
                                        'emdstatus'=>$invoice->InvoiceStatus_Code,
@@ -168,6 +177,11 @@ Class MoveEmdBillTrac extends MoveEmdBase{
                                        'emdinvoicenumber'=>$invoice->InvoiceNumber_EMD,
                                        'ptracnumber'=>'EMD:'.$invoice->InvoiceNumber_EMD
                                    );
+
+             if($emdimage)
+             {
+                 $importMap['emdimage']  = 1;
+             }
 
              foreach($importMap as $key=>$value)
             {
@@ -293,6 +307,15 @@ public function _update($refid, $invoice, $charges=array(), $payments=array())
                  $this->info("dry insert: \n" . print_r($data, true));
              }
 
+             $emdimage = false;
+
+             $respmt = DB::connection('emds')->select("select * from VIEW_API_PaymentIndex where Invoice_ID = '" . $invoice->Invoice_ID . "'AND (CheckImage <> '0000000000' or EOBImage <> '0000000000')");
+
+             foreach($respmt as $r)
+             {
+                $emdimage = true;
+             }
+
              $this->info("updated ticket number $billtracid");
 
               $importMap = array(
@@ -309,6 +332,11 @@ public function _update($refid, $invoice, $charges=array(), $payments=array())
                                        'emdinvoicenumber'=>$invoice->InvoiceNumber_EMD,
                                        'ptracnumber'=>'EMD:'.$invoice->InvoiceNumber_EMD
                                    );
+
+             if($emdimage)
+             {
+                 $importMap['emdimage']  = 1;
+             }
 
              foreach($importMap as $key=>$value)
             {

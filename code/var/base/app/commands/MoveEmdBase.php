@@ -190,7 +190,7 @@ class MoveEmdBase extends Command {
                                         'charges' => json_encode((array)$this->getCharges($invoice->Invoice_ID)),
                                         'payments' => json_encode((array)$this->getPayments($invoice->Invoice_ID)),
                                         'timekey' => md5($invoice->InvoiceUpdatedAt),
-                                        'paymentkey' => md5($invoice->PaymentTotal),
+                                        'paymentkey' => md5($invoice->PaymentUpdatedAt),
                                         'created_at'=>date('Y-m-d H:i:s', time())
                                     );
 
