@@ -143,7 +143,7 @@ class MoveEmdBase extends Command {
         $workload = array('update'=>0, 'insert'=>0, 'done'=>0);
 
         try{
-                $invoices_src = DB::connection('emds')->table("VIEW_Export_InvoiceIndex")->get();
+                $invoices_src = DB::connection('emds')->table("VIEW_API_InvoiceIndex")->get();
                 $invoice_dst = DB::connection()->table($this->keytable)->get();
 
                 //generate lookup, perhaps we should put it in REDIS later
