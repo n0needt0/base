@@ -205,7 +205,7 @@ class MoveEmdBase extends Command {
                         }
 
                     }
-                      else if(($refs[$invoice->InvoiceNumber_EMD] != md5($invoice->InvoiceUpdatedAt) ) || ($payments[$invoice->InvoiceNumber_EMD] != md5($invoice->PaymentTotal)))
+                      else if(($refs[$invoice->InvoiceNumber_EMD] != md5($invoice->InvoiceUpdatedAt . $invoice->PaymentUpdatedAt ) ) || ($payments[$invoice->InvoiceNumber_EMD] != md5($invoice->InvoiceUpdatedAt . $invoice->PaymentUpdatedAt)))
                     {
 
                         //this needs to be updated
