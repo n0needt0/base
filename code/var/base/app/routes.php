@@ -13,18 +13,10 @@
 
 Route::get('/', 'HomeController@showWelcome');
 
-//TODO Route::get('/', 'CronratController@getIndex');
-
 Route::controller('users', 'UserController');
-
-Route::controller('cronrat', 'CronratController');
 
 Route::controller('verify', 'VerifyController');
 
 Route::resource('groups', 'GroupController');
 
 Route::controller('emd', 'EmdController');
-
-
-
-
