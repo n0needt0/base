@@ -23,6 +23,18 @@ function buildImgUrl($img)
     }
     return '----';
 }
+
+function buildPdfUrl($img)
+{
+    if($img != '0000000000')
+    {
+        return "<a href='http://base.helppain.net/pdf?imgurl=http://10.10.0.170/ZZZZZ00002/$img' target='_New'>PDF</a>";
+    }
+    return '----';
+}
+
+
+
 ?>
 
 <div id='invoicecontainer'>
@@ -120,7 +132,7 @@ function buildImgUrl($img)
                 <td>{{number_format($payment['Payment_Payment'],2)}}</td>
                 <td>{{number_format($payment['Payment_Adjustment'],2)}}</td>
                 <td>{{$payment['Payment_PaymentComment']}}</td>
-                <td>{{buildImgUrl($payment['EOBImage'])}}</td>
+                <td>{{buildImgUrl($payment['EOBImage'])}} | {{buildPdfUrl($payment['EOBImage'])}}</td>
             </tr>
         @endforeach
     </tbody>
