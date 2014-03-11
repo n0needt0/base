@@ -128,7 +128,7 @@ function buildPdfUrl($img)
             <tr>
                 <td>{{$payment['Payment_DateCheck']}}</td>
                 <td>{{$payment['Payment_CheckNo']}}</td>
-                <td>{{ buildImgUrl($payment['CheckImage'])}}</td>
+                <td>{{ buildImgUrl($payment['CheckImage'])}} | {{ buildPdfUrl($payment['CheckImage'])}}</td>
                 <td>{{number_format($payment['Payment_Payment'],2)}}</td>
                 <td>{{number_format($payment['Payment_Adjustment'],2)}}</td>
                 <td>{{$payment['Payment_PaymentComment']}}</td>
