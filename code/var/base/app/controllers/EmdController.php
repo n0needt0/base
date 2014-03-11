@@ -13,6 +13,36 @@ class EmdController extends BaseController {
 		return 'emds';
 	}
 
+	public function getPdf()
+	{
+	    try{
+	    $image_url = Input::get('imgurl',false);
+	    if(!$image_url)
+	    {
+	       echo "Invalid Image";
+	       die;
+	    }
+	    $image = new Imagick();
+        $f = fopen($image_url, 'rb');
+        $image->readImageFile($f);
+        $image->setImageFormat("pdf");
+        $fname = md5($image_url);
+        $image->writeImages( '/tmp/' . $fname, true );
+        $image->clear();
+
+        header('Content-type: application/pdf');
+        header('Content-Disposition: attachment; filename="' . $fname .'"');
+        echo file_get_contents('/tmp/' . $fname);
+        unlink('/tmp/' . $fname);
+
+        die;
+
+	    }catch(Exception $e)
+	    {
+	        echo $e->getMessage();
+	    }
+	}
+
 	/**
 	*
 	*/
