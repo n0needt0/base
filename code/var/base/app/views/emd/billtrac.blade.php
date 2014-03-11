@@ -28,7 +28,7 @@ function buildPdfUrl($img)
 {
     if($img != '0000000000')
     {
-        return "<a href='http://base.helppain.net/pdf?imgurl=http://10.10.0.170/ZZZZZ00002/$img' target='_New'>PDF</a>";
+        return "<a href='http://base.helppain.net/emd/pdf?imgurl=http://10.10.0.170/ZZZZZ00002/$img' target='_New'>PDF</a>";
     }
     return '----';
 }
