@@ -36,7 +36,7 @@ return array(
                 'follow up'=>array(),
                 'hospital'=>array('note'=>'SCIPP or MILLS or Stanford', 'price_check'=>array('operator'=>'mod', 'value'=>2000)),
                 'reassessment'=>array(),
-                'UDS Report'=>array(),
+                'uds report'=>array(),
                 'wc f/up'=>array(),
                 'cma Visit'=>array(),
                 'pvt f/up'=>array(),
