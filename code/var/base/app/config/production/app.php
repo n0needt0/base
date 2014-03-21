@@ -38,7 +38,7 @@ return array(
                 'reassessment'=>array(),
                 'uds report'=>array(),
                 'wc f/up'=>array(),
-                'cma Visit'=>array(),
+                'cma visit'=>array(),
                 'pvt f/up'=>array(),
                 'permanent & stationary report'=>array()
                 ),
