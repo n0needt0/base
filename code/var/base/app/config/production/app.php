@@ -34,8 +34,12 @@ return array(
                 'letter'=>array(),
                 'injection'=>array(),
                 'follow up'=>array(),
-                'hospital'=>array('note'=>'SCIPP or MILLS or Stanford', 'price_check'=>array('operator'=>'mod', 'value'=>2000)),
+                'hospital (SCIPP or MILLS or Stanford)'=>array('note'=>'SCIPP or MILLS or Stanford', 'price_check'=>array('operator'=>'mod', 'value'=>2000)),
                 'reassessment'=>array(),
+                'UDS Report'=>array(),
+                'WC f/up'=>array(),
+                'CMA Visit'=>array(),
+                'PVT f/up'=>array(),
                 'permanent & stationary report'=>array()
                 ),
 
