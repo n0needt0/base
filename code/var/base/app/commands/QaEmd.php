@@ -122,7 +122,7 @@ class QaEmd extends Command {
 
                 Mail::send('emd.emailerrors', $data, function($message)
                 {
-                    $message->to(Config::get('app.emails.admin'))->subject('QA Emd Data Results');
+                    $message->to(Config::get('app.emails.admin'))->subject('IMPORTANT!!! QA Emd Data Results');
 
                     foreach(Config::get('app.emails.billing') as $billingemail)
                     {
