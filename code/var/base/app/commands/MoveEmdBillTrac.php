@@ -289,14 +289,8 @@ public function _update($refid, $invoice, $charges=array(), $payments=array())
                                        'time'=>$time,
                                        'changetime'=>$changetime,
                                        'summary'=>addslashes($invoice->PatientName),
-                                       'description'=>$dos,
-                                       'owner'=> $this->assign_ownerbyalpha(strtolower(substr($invoice->PatientName,0,1)))
+                                       'description'=>$dos
                                    );
-
-             if($owner = $this->assign_ownerbyinsurance(strtolower($invoice->InsuranceCompName)))
-             {
-                 $data['owner'] = $owner;
-             }
 
              if( \Config::get('app.emdtobilltrac.db_write'))
              {
@@ -324,11 +318,9 @@ public function _update($refid, $invoice, $charges=array(), $payments=array())
                                        'maildate'=>$invoice->InvoiceCreatedAt,
                                        'dosdate'=>$dos_first,
                                        'billamount'=>number_format($invoice->InvoiceTotal,2),
-                                       'duedate'=>date_create_from_format('m-d-Y', $invoice->InvoiceCreatedAt)->modify('+30 day')->format('m-d-Y'),
                                        'paidamount'=>number_format($invoice->PaymentTotal,2),
                                        'location'=>$this->translateLocation($invoice->Organization_Name),
                                        'carrier'=>addslashes($invoice->InsuranceCompName),
-                                       'claimnumber'=>$invoice->Case_ClaimNumber,
                                        'emdinvoicenumber'=>$invoice->InvoiceNumber_EMD,
                                        'ptracnumber'=>'EMD:'.$invoice->InvoiceNumber_EMD
                                    );
