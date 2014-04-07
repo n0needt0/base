@@ -116,6 +116,7 @@ function buildPdfUrl($img)
     <tbody>
         <tr>
         <th>CheckDate</th>
+        <th>DepositDate</th>
         <th>Check</th>
         <th>CheckImg</th>
         <th>Payment$</th>
@@ -127,6 +128,7 @@ function buildPdfUrl($img)
         @foreach ($payments as $payment)
             <tr>
                 <td>{{$payment['Payment_DateCheck']}}</td>
+                <td>{{$payment['Payment_DatePosted']}}</td>
                 <td>{{$payment['Payment_CheckNo']}}</td>
                 <td>{{ buildImgUrl($payment['CheckImage'])}} | {{ buildPdfUrl($payment['CheckImage'])}}</td>
                 <td>{{number_format($payment['Payment_Payment'],2)}}</td>
