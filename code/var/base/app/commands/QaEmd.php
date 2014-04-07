@@ -32,15 +32,16 @@ class QaEmd extends Command {
         $this->services = Config::get('app.validservices');
         $this->valid_services = array_keys($this->services);
         $this->available_services = array();
+        $this->service_hash=array();
 
         foreach($this->services as $service => $service_opts)
         {
-            if(isset($service_opts['note'])){
-                $service = strtolower( $service . ' (' . $service_opts['note'] . ')' );
+            if(isset($service_opts['note']))
+            {
+                $service =  strtolower($service . ' (' . $service_opts['note'] . ')');
             }
-
-            $this->available_services[] = $service;
-
+            $this->available_services[] = strtolower($service);
+            $this->service_hash[$service] = 1;
         }
     }
 
@@ -186,9 +187,9 @@ class QaEmd extends Command {
             $this->log_qa_db($invoice, "Invoice closed with outstanding balance. Please use write off codes" , 'warning');
         }
 
-        if(!in_array(strtolower($invoice->Invoice_Comment), $this->valid_services))
+        if(!isset($this->service_hash[strtolower(trim($invoice->Invoice_Comment))] ) )
         {
-            $this->log_qa_db($invoice, "Invalid Service: " . $invoice->Invoice_Comment , 'warning');
+             $this->log_qa_db($invoice, "Invalid Service: " . $invoice->Invoice_Comment , 'warning');
         }
 
         foreach($this->services as $k=>$v)
