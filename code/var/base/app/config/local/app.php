@@ -35,7 +35,7 @@ return array(
                 'letter'=>array(),
                 'injection'=>array(),
                 'follow up'=>array(),
-                'hospital'=>array('note'=>'SCIPP or MILLS or Stanford', 'price_check'=>array('operator'=>'mod', 'value'=>2000)),
+                'Hospital (Stanford, SCIPP, Mills, Etc)'=>array(),
                 'reassessment'=>array(),
                 'permanent & stationary report'=>array()
                 ),
