@@ -36,7 +36,7 @@ class QaEmd extends Command {
         foreach($this->services as $service => $service_opts)
         {
             if(isset($service_opts['note'])){
-                $service = $service . ' (' . $service_opts['note'] . ')';
+                $service = strtolower( $service . ' (' . $service_opts['note'] . ')' );
             }
 
             $this->available_services[] = $service;
