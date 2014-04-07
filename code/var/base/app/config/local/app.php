@@ -25,7 +25,7 @@ return array(
 
 'validservices'=>array(
                 'consult'=>array(),
-                'detox'=>array('note'=>'Detox IN', 'price_check'=>array('operator'=>'mod', 'value'=>2000)),
+                'detox'=>array('price_check'=>array('operator'=>'mod', 'value'=>2000)),
                 'evaluation'=>array(),
                 'follow Up'=>array(),
                 'help remote care'=>array(),
@@ -46,7 +46,7 @@ return array(
 
 'emails' =>array(
                             'admin'=>'ayasinsky@helppain.net',
-                            'billing'=>array('sglenn@helppain.net', 'jcarey@helppain.net')
+                            'billing'=>array()
                                            ),
 
 'emdtonetsuite'=>array(
