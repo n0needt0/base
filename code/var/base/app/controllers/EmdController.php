@@ -89,14 +89,14 @@ class EmdController extends BaseController {
 
                 $payment['EOBImage_dir'] = 'ZZZZZ00002';
 
-                if (!fopen ("http://10.10.0.170/ZZZZZ00002/" . $payment['EOBImage'], "r"))
+                if (!@fopen ("http://10.10.0.170/ZZZZZ00002/" . $payment['EOBImage'], "r"))
                 {
                     $payment['EOBImage_dir'] = false;
                 }
 
                 $payment['EOBImage_dir'] = 'ZZZZZ00003';
 
-                if (! fopen ("http://10.10.0.170/ZZZZZ00003/" . $payment['EOBImage'], "r"))
+                if (!@fopen ("http://10.10.0.170/ZZZZZ00003/" . $payment['EOBImage'], "r"))
                 {
                     $payment['EOBImage_dir'] = false;
                 }
@@ -107,14 +107,14 @@ class EmdController extends BaseController {
 
                 $payment['CheckImage_dir'] = 'ZZZZZ00002';
 
-                if (!fopen ("http://10.10.0.170/ZZZZZ00002/" . $payment['CheckImage'], "r"))
+                if (!@fopen ("http://10.10.0.170/ZZZZZ00002/" . $payment['CheckImage'], "r"))
                 {
                     $payment['CheckImage_dir'] = false;
                 }
 
                 $payment['CheckImage_dir'] = 'ZZZZZ00003';
 
-                if (!fopen ("http://10.10.0.170/ZZZZZ00005/" . $payment['CheckImage'], "r"))
+                if (!@fopen ("http://10.10.0.170/ZZZZZ00005/" . $payment['CheckImage'], "r"))
                 {
                     $payment['CheckImage_dir'] = false;
                 }
