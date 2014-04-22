@@ -172,7 +172,7 @@ class QaEmd extends Command {
             $this->log_qa_db($invoice,"Invoice Date is in the future",'all');
         }
 
-        if(empty($invoice->Invoice_Comment))
+        if(empty($invoice->Invoice_Comment) || '----' == $invoice->Invoice_Comment)
         {
             $this->log_qa_db($invoice,"Service Empty",'all');
         }
