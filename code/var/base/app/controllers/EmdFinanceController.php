@@ -51,23 +51,25 @@ class EmdFinanceController extends BaseController {
         foreach($res as $r)
         {
             $payment = (array)$r;
+             $payment['CheckImage_dir'] = false;
+              $payment['EOBImage_dir'] = false;
 
             if(!empty($payment['EOBImage']))
             {
                 $file = fopen ("http://10.10.0.170/ZZZZZ00002/" . $payment['EOBImage'], "r");
-                $payment['EOFImage_dir'] = 'ZZZZZ00002';
+                $payment['EOBImage_dir'] = 'ZZZZZ00002';
 
                 if (!$file)
                 {
-                    $payment['EOFImage_dir'] = false;
+                    $payment['EOBImage_dir'] = false;
                 }
 
                 $file = fopen ("http://10.10.0.170/ZZZZZ00003/" . $payment['EOBImage'], "r");
-                $payment['EOFImage_dir'] = 'ZZZZZ00003';
+                $payment['EOBImage_dir'] = 'ZZZZZ00003';
 
                 if (!$file)
                 {
-                    $payment['EOFImage_dir'] = false;
+                    $payment['EOBImage_dir'] = false;
                 }
             }
 
