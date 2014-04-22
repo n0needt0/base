@@ -80,7 +80,49 @@ class EmdController extends BaseController {
          $res = DB::connection('emds')->table("VIEW_API_PaymentIndex")->where('Invoice_ID', $emd_invoice_id)->get();
         foreach($res as $r)
         {
-            $payments[] = (array)$r;
+            $payment = (array)$r;
+             $payment['CheckImage_dir'] = false;
+              $payment['EOBImage_dir'] = false;
+
+            if(!empty($payment['EOBImage']))
+            {
+                $file = fopen ("http://10.10.0.170/ZZZZZ00002/" . $payment['EOBImage'], "r");
+                $payment['EOBImage_dir'] = 'ZZZZZ00002';
+
+                if (!$file)
+                {
+                    $payment['EOBImage_dir'] = false;
+                }
+
+                $file = fopen ("http://10.10.0.170/ZZZZZ00003/" . $payment['EOBImage'], "r");
+                $payment['EOBImage_dir'] = 'ZZZZZ00003';
+
+                if (!$file)
+                {
+                    $payment['EOBImage_dir'] = false;
+                }
+            }
+
+            if(!empty($payment['CheckImage']))
+            {
+                $file = fopen ("http://10.10.0.170/ZZZZZ00002/" . $payment['CheckImage'], "r");
+                $payment['CheckImage_dir'] = 'ZZZZZ00002';
+
+                if (!$file)
+                {
+                    $payment['CheckImage_dir'] = false;
+                }
+
+                $file = fopen ("http://10.10.0.170/ZZZZZ00003/" . $payment['CheckImage'], "r");
+                $payment['CheckImage_dir'] = 'ZZZZZ00003';
+
+                if (!$file)
+                {
+                    $payment['CheckImage_dir'] = false;
+                }
+            }
+
+            $payments[] = $payment;
             //unset secure data here
         }
 
