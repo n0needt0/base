@@ -86,18 +86,17 @@ class EmdController extends BaseController {
 
             if(!empty($payment['EOBImage']))
             {
-                $file = fopen ("http://10.10.0.170/ZZZZZ00002/" . $payment['EOBImage'], "r");
+
                 $payment['EOBImage_dir'] = 'ZZZZZ00002';
 
-                if (!$file)
+                if (!fopen ("http://10.10.0.170/ZZZZZ00002/" . $payment['EOBImage'], "r"))
                 {
                     $payment['EOBImage_dir'] = false;
                 }
 
-                $file = fopen ("http://10.10.0.170/ZZZZZ00003/" . $payment['EOBImage'], "r");
                 $payment['EOBImage_dir'] = 'ZZZZZ00003';
 
-                if (!$file)
+                if (! fopen ("http://10.10.0.170/ZZZZZ00003/" . $payment['EOBImage'], "r"))
                 {
                     $payment['EOBImage_dir'] = false;
                 }
@@ -105,18 +104,17 @@ class EmdController extends BaseController {
 
             if(!empty($payment['CheckImage']))
             {
-                $file = fopen ("http://10.10.0.170/ZZZZZ00002/" . $payment['CheckImage'], "r");
+
                 $payment['CheckImage_dir'] = 'ZZZZZ00002';
 
-                if (!$file)
+                if (!fopen ("http://10.10.0.170/ZZZZZ00002/" . $payment['CheckImage'], "r"))
                 {
                     $payment['CheckImage_dir'] = false;
                 }
 
-                $file = fopen ("http://10.10.0.170/ZZZZZ00003/" . $payment['CheckImage'], "r");
                 $payment['CheckImage_dir'] = 'ZZZZZ00003';
 
-                if (!$file)
+                if (!fopen ("http://10.10.0.170/ZZZZZ00005/" . $payment['CheckImage'], "r"))
                 {
                     $payment['CheckImage_dir'] = false;
                 }
