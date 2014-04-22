@@ -15,20 +15,20 @@
 </style>
 
 <?php
-function buildImgUrl($img)
+function buildImgUrl($img, $dir)
 {
-    if($img != '0000000000')
+    if($img != '0000000000' && $dir)
     {
-        return "<a href='http://10.10.0.170/ZZZZZ00002/$img' target='_New'>IMG</a>";
+        return "<a href='http://10.10.0.170/' . $dir . '/$img' target='_New'>IMG</a>";
     }
     return '----';
 }
 
-function buildPdfUrl($img)
+function buildPdfUrl($img, $dir)
 {
-    if($img != '0000000000')
+    if($img != '0000000000' && $dir)
     {
-        return "<a href='http://base.helppain.net/emd/pdf?imgurl=http://10.10.0.170/ZZZZZ00002/$img' target='_New'>PDF</a>";
+        return "<a href='http://base.helppain.net/emd/pdf?imgurl=http://10.10.0.170/' . $dir . '/$img' target='_New'>PDF</a>";
     }
     return '----';
 }
@@ -130,11 +130,11 @@ function buildPdfUrl($img)
                 <td>{{$payment['Payment_DateCheck']}}</td>
                 <td>{{$payment['Payment_DatePosted']}}</td>
                 <td>{{$payment['Payment_CheckNo']}}</td>
-                <td>{{ buildImgUrl($payment['CheckImage'])}} | {{ buildPdfUrl($payment['CheckImage'])}}</td>
+                <td>{{ buildImgUrl($payment['CheckImage'], $payment['CheckImage_dir'])}} | {{ buildPdfUrl($payment['CheckImage'], $payment['CheckImage_dir'])}}</td>
                 <td>{{number_format($payment['Payment_Payment'],2)}}</td>
                 <td>{{number_format($payment['Payment_Adjustment'],2)}}</td>
                 <td>{{$payment['Payment_PaymentComment']}}</td>
-                <td>{{buildImgUrl($payment['EOBImage'])}} | {{buildPdfUrl($payment['EOBImage'])}}</td>
+                <td>{{buildImgUrl($payment['EOBImage'], $payment['EOBImage_dir'])}} | {{buildPdfUrl($payment['EOBImage'], $payment['EOBImage_dir'])}}</td>
             </tr>
         @endforeach
     </tbody>
