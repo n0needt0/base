@@ -19,7 +19,7 @@ function buildImgUrl($img, $dir)
 {
     if($img != '0000000000' && $dir)
     {
-        return "<a href='http://10.10.0.170/' . $dir . '/$img' target='_New'>IMG</a>";
+        return "<a href='http://10.10.0.170/" . $dir . "/$img' target='_New'>IMG</a>";
     }
     return '----';
 }
@@ -28,7 +28,7 @@ function buildPdfUrl($img, $dir)
 {
     if($img != '0000000000' && $dir)
     {
-        return "<a href='http://base.helppain.net/emd/pdf?imgurl=http://10.10.0.170/' . $dir . '/$img' target='_New'>PDF</a>";
+        return "<a href='http://base.helppain.net/emd/pdf?imgurl=http://10.10.0.170/" . $dir . "/$img' target='_New'>PDF</a>";
     }
     return '----';
 }
