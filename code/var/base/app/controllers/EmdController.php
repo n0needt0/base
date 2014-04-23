@@ -77,7 +77,7 @@ class EmdController extends BaseController {
 
         $invoice['charges'] = $charges;
 
-        $res = DB::connection('emds')->table("VIEW_API_BILLTRAC_PaymentIndex")->where('Invoice_ID', $emd_invoice_id)->get();
+        $res = DB::connection('emds')->table("VIEW_API_PaymentIndex")->where('Invoice_ID', $emd_invoice_id)->get();
         foreach($res as $r)
         {
             $payments[] = (array)$r;
