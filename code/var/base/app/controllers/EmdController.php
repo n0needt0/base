@@ -5,54 +5,54 @@ class EmdController extends BaseController {
 
     public function __construct()
     {
-//        $this->beforeFilter('auth');
+        //        $this->beforeFilter('auth');
     }
 
-	public function getIndex()
-	{
-		return 'emds';
-	}
+    public function getIndex()
+    {
+        return 'emds';
+    }
 
-	public function getPdf()
-	{
-	    try{
-	    $image_url = Input::get('imgurl',false);
-	    if(!$image_url)
-	    {
-	       echo "Invalid Image";
-	       die;
-	    }
-	    $image = new Imagick();
-        $f = fopen($image_url, 'rb');
-        $image->readImageFile($f);
-        $image->setImageFormat("pdf");
-        $fname = md5($image_url);
-        $image->writeImages( '/tmp/' . $fname, true );
-        $image->clear();
+    public function getPdf()
+    {
+        try{
+            $image_url = Input::get('imgurl',false);
+            if(!$image_url)
+            {
+                echo "Invalid Image";
+                die;
+            }
+            $image = new Imagick();
+            $f = fopen($image_url, 'rb');
+            $image->readImageFile($f);
+            $image->setImageFormat("pdf");
+            $fname = md5($image_url);
+            $image->writeImages( '/tmp/' . $fname, true );
+            $image->clear();
 
-        header('Content-type: application/pdf');
-        header('Content-Disposition: attachment; filename="' . $fname .'"');
-        echo file_get_contents('/tmp/' . $fname);
-        unlink('/tmp/' . $fname);
+            header('Content-type: application/pdf');
+            header('Content-Disposition: attachment; filename="' . $fname .'"');
+            echo file_get_contents('/tmp/' . $fname);
+            unlink('/tmp/' . $fname);
 
-        die;
+            die;
 
-	    }catch(Exception $e)
-	    {
-	        echo $e->getMessage();
-	    }
-	}
+        }catch(Exception $e)
+        {
+            echo $e->getMessage();
+        }
+    }
 
-	/**
-	*
-	*/
+    /**
+     *
+     */
 
-	public function getInvoice($invoice_id,$format=false)
-	{
+    public function getInvoice($invoice_id,$format=false)
+    {
         $invoice = array('header'=>array(), 'charges'=>array(), 'payments'=>array());
         $header = $charges = $payments = array();
 
-	    $res = DB::connection('emds')->table("VIEW_API_InvoiceIndex")->where('InvoiceNumber_EMD', $invoice_id)->get();
+        $res = DB::connection('emds')->table("VIEW_API_InvoiceIndex")->where('InvoiceNumber_EMD', $invoice_id)->get();
         foreach($res as $r)
         {
             $header = (array)$r;
@@ -68,7 +68,7 @@ class EmdController extends BaseController {
 
         $invoice['header'] = $header;
 
-	    $res = DB::connection('emds')->table("VIEW_API_InvoiceCPT")->where('Invoice_ID', $emd_invoice_id)->get();
+        $res = DB::connection('emds')->table("VIEW_API_InvoiceCPT")->where('Invoice_ID', $emd_invoice_id)->get();
         foreach($res as $r)
         {
             $charges[] = (array)$r;
@@ -77,50 +77,10 @@ class EmdController extends BaseController {
 
         $invoice['charges'] = $charges;
 
-         $res = DB::connection('emds')->table("VIEW_API_PaymentIndex")->where('Invoice_ID', $emd_invoice_id)->get();
+        $res = DB::connection('emds')->table("VIEW_API_BILLTRAC_PaymentIndex")->where('Invoice_ID', $emd_invoice_id)->get();
         foreach($res as $r)
         {
-            $payment = (array)$r;
-             $payment['CheckImage_dir'] = false;
-              $payment['EOBImage_dir'] = false;
-
-            if(!empty($payment['EOBImage']))
-            {
-
-                $payment['EOBImage_dir'] = 'ZZZZZ00002';
-
-                if (!@fopen ("http://10.10.0.170/ZZZZZ00002/" . $payment['EOBImage'], "r"))
-                {
-                    $payment['EOBImage_dir'] = false;
-                }
-
-                $payment['EOBImage_dir'] = 'ZZZZZ00003';
-
-                if (!@fopen ("http://10.10.0.170/ZZZZZ00003/" . $payment['EOBImage'], "r"))
-                {
-                    $payment['EOBImage_dir'] = false;
-                }
-            }
-
-            if(!empty($payment['CheckImage']))
-            {
-
-                $payment['CheckImage_dir'] = 'ZZZZZ00002';
-
-                if (!@fopen ("http://10.10.0.170/ZZZZZ00002/" . $payment['CheckImage'], "r"))
-                {
-                    $payment['CheckImage_dir'] = false;
-                }
-
-                $payment['CheckImage_dir'] = 'ZZZZZ00003';
-
-                if (!@fopen ("http://10.10.0.170/ZZZZZ00005/" . $payment['CheckImage'], "r"))
-                {
-                    $payment['CheckImage_dir'] = false;
-                }
-            }
-
-            $payments[] = $payment;
+            $payments[] = (array)$r;
             //unset secure data here
         }
 
@@ -135,11 +95,11 @@ class EmdController extends BaseController {
             $content = View::make('emd.billtrac')->with($invoice)->render();
             return $this->json_out(array('contents'=>$content));
         }
-          else
+        else
         {
             //just output regular div
             return View::make('emd.billtrac')->with($invoice);
         }
 
-	}
+    }
 }
