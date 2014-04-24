@@ -179,7 +179,9 @@ class QaEmd extends Command {
 
         if(empty($invoice->InvoiceStatus_Code) || '----' == $invoice->InvoiceStatus_Code)
         {
+
             $this->log_qa_db($invoice,"Invalid Status Code \"" . $invoice->InvoiceStatus_Code . '"' ,'all');
+
         }
 
 
