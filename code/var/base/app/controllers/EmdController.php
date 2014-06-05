@@ -105,7 +105,7 @@ class EmdController extends BaseController {
 
     public function getAppointments($patient_file,$format=false)
     {
-        $appointments = array();
+        $appointments = $schedule = array();
 
         $res = DB::connection('emds')->table("VIEW_API_Appointment")->where('patient_file', strtoupper($patient_file))->get();
         foreach($res as $r)
@@ -119,19 +119,21 @@ class EmdController extends BaseController {
             return 'invalid patient file';
         }
 
+        $schedule['appointments'] = $appointments;
+
         if('json' == $format)
         {
-            return $this->json_out($appointments);
+            return $this->json_out($schedule);
         }
         elseif('htmljson' == $format)
         {
-            $content = View::make('emd.ptrac')->with($appointments)->render();
+            $content = View::make('emd.ptrac')->with($schedule)->render();
             return $this->json_out(array('contents'=>$content));
         }
         else
         {
             //just output regular div
-            return View::make('emd.ptrac')->with($appointments);
+            return View::make('emd.ptrac')->with($schedule);
         }
 
     }
