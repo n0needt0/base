@@ -7,10 +7,10 @@
    margin:0 auto;
 }
 
-.invoicedetails{ background-color:#eaeaea;
+.appontmentdetails{ background-color:#eaeaea;
                     }
 
-.invoiceheader{ background-color:#b0c4de;
+.appointmentheader{ background-color:#b0c4de;
                     }
 </style>
 
