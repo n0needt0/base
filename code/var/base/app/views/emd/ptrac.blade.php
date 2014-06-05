@@ -7,10 +7,10 @@
    margin:0 auto;
 }
 
-.appontmentdetails{ background-color:#eaeaea;
+.appointmentdetails{ background-color:#eaeaea;
                     }
 
-.appointmentheader{ background-color:#b0c4de;
+.appointmentdetails{ background-color:#b0c4de;
                     }
 </style>
 
