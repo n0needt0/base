@@ -121,7 +121,7 @@ class EmdController extends BaseController {
 
         if('json' == $format)
         {
-            return $this->json_out($appointment);
+            return $this->json_out($appointments);
         }
         elseif('htmljson' == $format)
         {
