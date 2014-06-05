@@ -102,4 +102,37 @@ class EmdController extends BaseController {
         }
 
     }
+
+    public function getAppoinments($patient_file,$format=false)
+    {
+        $appointments = array();
+
+        $res = DB::connection('emds')->table("VIEW_API_Appointment")->where('patient_file', $patient_file)->get();
+        foreach($res as $r)
+        {
+            $appointments[] = (array)$r;
+            //unset secure data here
+        }
+
+        if(!count($appointments))
+        {
+            return 'invalid patient file';
+        }
+
+        if('json' == $format)
+        {
+            return $this->json_out($appointment);
+        }
+        elseif('htmljson' == $format)
+        {
+            $content = View::make('emd.ptrac')->with($appointments)->render();
+            return $this->json_out(array('contents'=>$content));
+        }
+        else
+        {
+            //just output regular div
+            return View::make('emd.ptrac')->with($appointments);
+        }
+
+    }
 }
