@@ -27,7 +27,7 @@
 
     @foreach ($appointments as $appointment)
       <tr>
-          <td>{{date('D-M-d h:iA',strtotime($appointment['startf']))}}</td>
+          <td>{{date('D M-d h:iA',strtotime($appointment['startf']))}}</td>
           <td>{{$appointment['appointment_type']}}</td>
           <td>{{$appointment['resource']}}</td>
           <td>{{$appointment['facility']}}</td>
