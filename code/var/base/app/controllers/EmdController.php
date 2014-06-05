@@ -103,11 +103,11 @@ class EmdController extends BaseController {
 
     }
 
-    public function getAppoinments($patient_file,$format=false)
+    public function getAppointments($patient_file,$format=false)
     {
         $appointments = array();
 
-        $res = DB::connection('emds')->table("VIEW_API_Appointment")->where('patient_file', $patient_file)->get();
+        $res = DB::connection('emds')->table("VIEW_API_Appointment")->where('patient_file', strtoupper($patient_file))->get();
         foreach($res as $r)
         {
             $appointments[] = (array)$r;
