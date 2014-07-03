@@ -10,7 +10,7 @@ return array(
                             array('start'=>'a', 'end'=>'z', 'owner'=>'jalvarado')
                     ),
     'insurance_owner'=>array(
-                            array('pattern'=>'liberty', 'owner'=>'ktrylovich ')
+                            array('pattern'=>'liberty_ZZZZ', 'owner'=>'ktrylovich ')
                     ),
     'db_write' => true,
     'db_delete'=>false,
@@ -45,7 +45,7 @@ return array(
 
 'emails' =>array(
                             'admin'=>'ayasinsky@helppain.net',
-                            'billing'=>array('sglenn@helppain.net', 'jcarey@helppain.net','brose@helppain.net')
+                            'billing'=>array('sglenn@helppain.net', 'jcarey@helppain.net','jbrose@helppain.net')
                                            ),
 
 'emdtonetsuite'=>array(
