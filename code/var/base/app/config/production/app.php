@@ -45,7 +45,7 @@ return array(
 
 'emails' =>array(
                             'admin'=>'ayasinsky@helppain.net',
-                            'billing'=>array('sglenn@helppain.net', 'jcarey@helppain.net','jbrose@helppain.net')
+                            'billing'=>array('sglenn@helppain.net', 'jcarey@helppain.net','jbrose@helppain.net' )
                                            ),
 
 'emdtonetsuite'=>array(
