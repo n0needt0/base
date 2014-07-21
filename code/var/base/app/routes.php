@@ -11,12 +11,24 @@
 |
 */
 
-Route::get('/', 'HomeController@showWelcome');
+Route::group(array('domain' => 'base.helppain.net'), function()
+{
 
-Route::controller('users', 'UserController');
 
-Route::controller('verify', 'VerifyController');
+    Route::get('/', 'HomeController@showWelcome');
 
-Route::resource('groups', 'GroupController');
+    Route::controller('users', 'UserController');
 
-Route::controller('emd', 'EmdController');
+    Route::controller('verify', 'VerifyController');
+
+    Route::resource('groups', 'GroupController');
+
+    Route::controller('emd', 'EmdController');
+
+});
+
+Route::group(array('domain' => 'search.helppain.net'), function()
+{
+        Route::get('/', 'SearchController@showWelcome');
+
+});
