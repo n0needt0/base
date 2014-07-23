@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <title>FacetView</title>
 
-  <script type="text/javascript" src="/assets/vendor/jquery/1.7.1/jquery-1.7.1.min.js"></script>
+  <script type="text/javascript" src="/assets/vendor/jquery/jquery-1.8.2-min.js"></script>
 
   <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
   <script type="text/javascript" src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
