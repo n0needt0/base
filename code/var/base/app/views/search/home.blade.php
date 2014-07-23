@@ -1,23 +1,22 @@
-@section('content')
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8" />
   <title>FacetView</title>
 
-  <script type="text/javascript" src="vendor/jquery/1.7.1/jquery-1.7.1.min.js"></script>
+  <script type="text/javascript" src="/assets/vendor/jquery/1.7.1/jquery-1.7.1.min.js"></script>
 
-  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
-  <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>  
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+  <script type="text/javascript" src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-  <script type="text/javascript" src="vendor/linkify/1.0/jquery.linkify-1.0-min.js"></script>  
-  
-  <link rel="stylesheet" href="vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.css">
-  <script type="text/javascript" src="vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.min.js"></script>
+  <script type="text/javascript" src="/assets/vendor/linkify/1.0/jquery.linkify-1.0-min.js"></script>
 
-  <script type="text/javascript" src="js/jquery.facetview.js"></script>
+  <link rel="stylesheet" href="/assets/vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.css">
+  <script type="text/javascript" src="/assets/vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.min.js"></script>
 
-  <link rel="stylesheet" href="css/facetview.css">
+  <script type="text/javascript" src="/assets/js/jquery.facetview.js"></script>
+
+  <link rel="stylesheet" href="/assets/css/facetview.css">
 
   <script type="text/javascript">
 jQuery(document).ready(function($) {
@@ -30,7 +29,7 @@ jQuery(document).ready(function($) {
              {'field': 'type', 'display': 'service'},
              {'field': 'owner', 'display': 'owner'},
              {'field': 'status', 'display': 'status'},
-             
+
          ],
   });
 });
@@ -60,4 +59,3 @@ color: maroon;
     <div class="facet-view-simple"></div>
 </body>
 </html>
-@stop

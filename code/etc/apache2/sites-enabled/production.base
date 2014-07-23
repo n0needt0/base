@@ -5,9 +5,7 @@
   DirectoryIndex index.php index.html
     SetEnv HTTPS 1
   RewriteEngine On
-    
-  RewriteRule ^/(.*)   https://%{HTTP_HOST}/$1 [L,R]
-    
+
   DocumentRoot /var/www/base/public
   Alias /assets/  /var/www/base/public/assets/
   Alias /var/uploads/  /var/uploads/
