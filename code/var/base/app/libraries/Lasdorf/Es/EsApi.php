@@ -11,7 +11,7 @@ Class EsApi extends EsBase{
     public function __construct(){
         \Log::info($this->sig . " api call start:" . time());
         $this->es = new \Elasticsearch\Client(array('hosts'=> Config::get('elastic.eshosts')));
-
+        parent::set_debug_level( Config::get('elastic.dayes.debug') );
         $this->bulkes=array('body'=>array()); //structure to keep bunch of docs together for bulk insert
         $this->bulklimit = 4000; //number of documents in bulk struct double it to what you want
     }
@@ -24,8 +24,15 @@ Class EsApi extends EsBase{
 
     public function flush_index($index_name)
     {
-        $this->es->indices()->delete($index_name);
-        $this->es->indices()->create($index_name);
+        try {
+
+            if( $this->es->indices()->exists(array('index'=>$index_name)) )
+            {
+                $this->es->indices()->delete(array('index'=>$index_name));
+            }
+        } catch (Exception $e) {
+            $this->debug($e->getMessage());
+        }
     }
 
     public function insert_doc($doc)
@@ -42,10 +49,6 @@ Class EsApi extends EsBase{
         }
     }
 
-    public function delete_index($index)
-    {
-        $this->es->indices()->delete(array('index'=>$index));
-    }
     /**
      * Selects meta data associated with invoices
      */
@@ -65,7 +68,7 @@ Class EsApi extends EsBase{
 
             foreach($columns as $column)
             {
-                echo ".";
+                $this->debug( "." );
 
                 if(stripos($column->COLUMN_NAME, 'guid') !== false || $column->TYPE_NAME == 'xml')
                 {
@@ -97,7 +100,7 @@ Class EsApi extends EsBase{
 
                 $esdata = array('index'=>$index,
                                 'type'=>'emd:' . $r->name . ':' . $column ,
-                                'body'=> array( 'Body'=>$body )
+                                'body'=> array('Source'=>'emd:' . $r->name . ':' . $column, 'Body'=>$body )
                 );
                 if($i>1)
                 {
@@ -137,14 +140,14 @@ Class EsApi extends EsBase{
 
         if($i < $this->bulklimit)
         {
-            echo "doc count $i \n";
+            $this->debug( "doc count $i ");
             //add to doc struct
             $this->bulkes['body'][] = array('index' => array('_index'=>$doc['index'],'_type'=>$doc['type']));
             $this->bulkes['body'][] =$doc['body'];
         }
           else
         {
-            echo "flush to es\n";
+            $this->debug( "flush to es" );
             //flush to es
             $this->add_to_es($this->bulkes, true);
             $this->bulkes = array('body'=>array());
@@ -177,6 +180,7 @@ Class EsApi extends EsBase{
                 {
                     $esdata['body']['id'] = $val;
                     $esdata['body']['Uri'] = "https://" . $trac . ".helppain.net/ticket/" . $row->id;
+                    $esdata['body']['Source'] = $trac;
                 }
                 $esdata['body']['Ticket'][$key] = $this->cleanstr($val);
             }

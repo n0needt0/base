@@ -64,7 +64,7 @@ class DayEs extends Command {
 
         try{
              $es = new EsApi();
-             $res = $es->delete_index('datastructures');
+             $res = $es->flush_index('datastructures');
              $res = $es->emds_struct_to_es('datastructures');
              $res = $es->add_trac_to_es('ptrac', 'datastructures');
              $res = $es->add_trac_to_es('billtrac', 'datastructures');
