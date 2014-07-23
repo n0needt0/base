@@ -99,7 +99,7 @@ Class EsApi extends EsBase{
                 }
 
                 $esdata = array('index'=>$index,
-                                'type'=>'emd' ,
+                                'type'=>'emd',
                                 'body'=> array('Source'=>'emd:' . $r->name . ':' . $column, 'Body'=>$body )
                 );
                 if($i>1)
