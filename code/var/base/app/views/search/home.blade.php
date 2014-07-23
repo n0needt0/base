@@ -4,19 +4,19 @@
   <meta charset="utf-8" />
   <title>FacetView</title>
 
-  <script type="text/javascript" src="/assets/vendor/jquery/1.7.1/jquery-1.7.1.min.js"></script>
+  <script type="text/javascript" src="/assets/facetview/vendor/jquery/1.7.1/jquery-1.7.1.min.js"></script>
 
-  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
-  <script type="text/javascript" src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/assets/facetview/vendor/bootstrap/css/bootstrap.min.css">
+  <script type="text/javascript" src="/assets/facetview/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-  <script type="text/javascript" src="/assets/vendor/linkify/1.0/jquery.linkify-1.0-min.js"></script>
+  <script type="text/javascript" src="/assets/facetview/vendor/linkify/1.0/jquery.linkify-1.0-min.js"></script>
 
-  <link rel="stylesheet" href="/assets/vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.css">
-  <script type="text/javascript" src="/assets/vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.min.js"></script>
+  <link rel="stylesheet" href="/assets/facetview/vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.css">
+  <script type="text/javascript" src="/assets/facetview/vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.min.js"></script>
 
-  <script type="text/javascript" src="/assets/js/jquery.facetview.js"></script>
+  <script type="text/javascript" src="/assets/facetview/js/jquery.facetview.js"></script>
 
-  <link rel="stylesheet" href="/assets/css/facetview.css">
+  <link rel="stylesheet" href="/assets/facetview/css/facetview.css">
 
   <script type="text/javascript">
 jQuery(document).ready(function($) {
