@@ -1,3 +1,4 @@
+@section('content')
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,17 +15,17 @@
   <link rel="stylesheet" href="vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.css">
   <script type="text/javascript" src="vendor/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.min.js"></script>
 
-  <script type="text/javascript" src="jquery.facetview.js"></script>
+  <script type="text/javascript" src="js/jquery.facetview.js"></script>
 
   <link rel="stylesheet" href="css/facetview.css">
 
   <script type="text/javascript">
 jQuery(document).ready(function($) {
   $('.facet-view-simple').facetview({
-    search_url: 'http://search.helppain.net:9200/helppain/_search?',
-    search_index: 'helppain',
+    search_url: 'http://elastic.helppain.net:9200/datastructures/_search?',
+    search_index: 'datastructures',
     facets: [
-             {'field': 'Source', 'display': 'source'},
+             {'field': '_type', 'display': 'database'},
              {'field': 'location', 'display': 'location'},
              {'field': 'type', 'display': 'service'},
              {'field': 'owner', 'display': 'owner'},
@@ -59,3 +60,4 @@ color: maroon;
     <div class="facet-view-simple"></div>
 </body>
 </html>
+@stop

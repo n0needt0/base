@@ -345,7 +345,7 @@ search box - the end user will not know they are happening.
                         "pre": "<strong>",
                         "field": "Source",
                         "post": "</strong> : "
-                    }, 
+                    },
                     {
                         "pre": "<i>",
                         "field": "Uri",

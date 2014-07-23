@@ -18,7 +18,6 @@ Class EsBase{
 
     public function debug($str)
     {
-
         if($this->debug_level)
         {
            echo print_r($str,1);
