@@ -1,4 +1,29 @@
 <VirtualHost  *:80>
+  ServerName search.helppain.net
+  ServerAdmin webmaster@helppain.net
+  AllowEncodedSlashes On
+  DirectoryIndex index.php index.html
+    SetEnv HTTPS 1
+  RewriteEngine On
+    
+  RewriteRule ^/(.*)   https://%{HTTP_HOST}/$1 [L,R]
+    
+  DocumentRoot /var/www/base/public
+  Alias /assets/  /var/www/base/public/assets/
+  Alias /var/uploads/  /var/uploads/
+  <Directory /var/uploads>
+      Options -Indexes
+  </Directory>
+  <Directory "/var/www/base/public">
+      Options All
+      AllowOverride All
+      Order allow,deny
+      Allow from all
+    RewriteEngine on
+  </Directory>
+</VirtualHost>
+
+<VirtualHost  *:80>
   ServerName base.helppain.net
   ServerAdmin webmaster@helppain.net
   AllowEncodedSlashes On
