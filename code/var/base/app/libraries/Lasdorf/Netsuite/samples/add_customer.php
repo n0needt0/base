@@ -1,35 +1,39 @@
-<?php namespace Lasdorf\Netsuite;
+<?php
+
+namespace Lasdorf\Netsuite;
 
 require_once __DIR__ . '/API/NetSuiteService.php';
 
 Class AddCustomer
 {
 
- static public function add($customer)
- {
-     try{
 
-                $service = new NetSuiteService();
+    public static function add($customer)
+     {
+         try{
 
-                $customer = new Customer();
-                $customer->companyName = $customer->name;
-                $customer->subsidiary = new RecordRef();
-                $customer->subsidiary->internalId = $customer->subsidiary;
+                    $service = new NetSuiteService();
 
-                $request = new AddRequest();
-                $request->record = $customer;
+                    $customer = new Customer();
+                    $customer->companyName = $customer->name;
+                    $customer->subsidiary = new RecordRef();
+                    $customer->subsidiary->internalId = $customer->subsidiary;
 
-                $addResponse = $service->add($request);
+                    $request = new AddRequest();
+                    $request->record = $customer;
 
-                if ($addResponse->writeResponse->status->isSuccess)
-                {
-                    return $addResponse->writeResponse->baseRef->internalId;
-                }
+                    $addResponse = $service->add($request);
 
-                return false;
-      }
-        catch(Exception $e)
-      {
-         throw new Exception($e->getMessage());
-      }
+                    if ($addResponse->writeResponse->status->isSuccess)
+                    {
+                        return $addResponse->writeResponse->baseRef->internalId;
+                    }
+
+                    return false;
+          }
+          catch(Exception $e)
+          {
+             throw new Exception($e->getMessage());
+          }
+     }
 }

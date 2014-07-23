@@ -217,6 +217,17 @@ class SentryServiceProvider extends ServiceProvider {
 					array($suspensionTime)
 				);
 			}
+			
+			// Define the User model to use for relationships.
+			if (method_exists($model, 'setUserModel'))
+			{
+				$userModel = $app['config']['cartalyst/sentry::users.model'];
+
+				forward_static_call_array(
+					array($model, 'setUserModel'),
+					array($userModel)
+				);
+			}
 
 			return $throttleProvider;
 		});
@@ -248,7 +259,19 @@ class SentryServiceProvider extends ServiceProvider {
 		{
 			$key = $app['config']['cartalyst/sentry::cookie.key'];
 
-			return new IlluminateCookie($app['request'], $app['cookie'], $key);
+			/**
+			 * We'll default to using the 'request' strategy, but switch to
+			 * 'jar' if the Laravel version in use is 4.0.*
+			 */
+
+			$strategy = 'request';
+
+			if (preg_match('/^4\.0\.\d*$/D', $app::VERSION))
+			{
+				$strategy = 'jar';
+			}
+
+			return new IlluminateCookie($app['request'], $app['cookie'], $key, $strategy);
 		});
 	}
 

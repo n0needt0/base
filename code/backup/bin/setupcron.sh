@@ -59,3 +59,13 @@ cat $FILE | grep -v "$COMMAND" > $FILE2;
 echo "$ENTRY" >> $FILE2; 
 crontab $FILE2;
 rm $FILE $FILE2
+
+COMMAND="php /var/www/base/artisan command:dayees --env=production && curl \"http://www.cronrat.com/r/7n9GvvYu\" --data-urlencode \"rat=dayes\" --data-urlencode \"crontab=0 1 * * 3\" --data-urlencode \"toutc=-7\""; 
+FILE="/tmp/$(basename $0).$RANDOM.txt"; 
+FILE2="/tmp/$(basename $0).$RANDOM.txt"; 
+ENTRY="0 1 * * 3 $COMMAND"; 
+crontab -l > $FILE 2> /dev/null; 
+cat $FILE | grep -v "$COMMAND" > $FILE2; 
+echo "$ENTRY" >> $FILE2; 
+crontab $FILE2;
+rm $FILE $FILE2
