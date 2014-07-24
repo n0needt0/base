@@ -12,6 +12,10 @@
    margin:0 auto;
 }
 
+.shccol{
+ width:100px;
+}
+
 .appointmentdetails{ background-color:#eaeaea;
                     }
 
@@ -35,28 +39,29 @@
 <td class="schcancel">Cancelled</th>
 </tr>
 </table>
-<div id='appontmentdetails' class='inwrap appointmentdetails' style="overflow: scroll; width: 650px; height: 150px;">
-
 <table class="properties inwrap">
 <thead>
     <tr>
-    <th>Date</th>
-    <th>Time</th>
-    <th>Resource</th>
-    <th>Duration</th>
-    <th>Visit Type</th>
-    <th>Where</th>
+    <th class="shccol">Date</th>
+    <th class="shccol">Time</th>
+    <th class="shccol">Resource</th>
+    <th class="shccol">Duration</th>
+    <th class="shccol">Visit Type</th>
+    <th class="shccol">Where</th>
     </tr>
 </thead>
+</table>
+<div id='appontmentdetails' class='inwrap appointmentdetails' style="overflow: scroll; width: 650px; height: 150px;">
+<table class="properties inwrap">
 <tbody>
     @foreach ($appointments as $appointment)
       <tr class="{{$appointment['display']}}">
-          <td>{{date('m/d/y',strtotime($appointment['startf']))}}</td>
-          <td>{{date('h:ia',strtotime($appointment['startf']))}}</td>
-          <td>{{preg_replace('~\b(\w)|.~', '$1', $appointment['resource'])}}</td>
-          <td>{{ (strtotime($appointment['endf']) - strtotime($appointment['startf']))/60}}</td>
-          <td>{{ preg_replace('~\b(\w)|.~', '$1', $appointment['appointment_type'])}}</td>
-          <td>{{preg_replace('~\b(\w)|.~', '$1', $appointment['facility'])}}</td>
+          <td class="shccol">{{date('m/d/y',strtotime($appointment['startf']))}}</td>
+          <td class="shccol">{{date('h:ia',strtotime($appointment['startf']))}}</td>
+          <td class="shccol">{{preg_replace('~\b(\w)|.~', '$1', $appointment['resource'])}}</td>
+          <td class="shccol">{{ (strtotime($appointment['endf']) - strtotime($appointment['startf']))/60}}</td>
+          <td class="shccol">{{ preg_replace('~\b(\w)|.~', '$1', $appointment['appointment_type'])}}</td>
+          <td class="shccol">{{preg_replace('~\b(\w)|.~', '$1', $appointment['facility'])}}</td>
       </tr>
     @endforeach
     </tbody>
