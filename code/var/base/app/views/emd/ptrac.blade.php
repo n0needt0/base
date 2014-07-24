@@ -19,7 +19,7 @@
 </style>
 
 
-<div id='appontmentdetails' class='wrap appointmentdetails' style="overflow: scroll; width: 700px; height: 100px;">
+<div id='appontmentdetails' class='wrap appointmentdetails' style="overflow: scroll; width: 700px; height: 150px;">
 <table class="properties wrap">
 <tr>
 <td class="schnormal">Active</th>
