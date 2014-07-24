@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(array('domain' => 'base.helppain.net'), function()
+Route::group(array('domain' => 'base.helppain.net','domain' => 'base.this.com'), function()
 {
 
 

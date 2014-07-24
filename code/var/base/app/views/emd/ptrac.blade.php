@@ -10,30 +10,38 @@
 .appointmentdetails{ background-color:#eaeaea;
                     }
 
-.appointmentdetails{ background-color:#b0c4de;
+.appointmentdetails thead{ background-color:#b0c4de;
                     }
+tr.schnormal {color:#000000;}
+tr.schhistory {color:#580000;}
+tr.schnoshow {color:#FF0000;}
+tr.schcancel {color:#808000;}
 </style>
 
 <div id='appontmentdetails' class='wrap appointmentdetails'>
-<table class="properties">
-    <tbody>
+<table class="properties wrap">
+<thead>
     <tr>
-    <th>When</th>
-    <th>Service</th>
-    <th>Provider</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Resource</th>
+    <th>Duration</th>
+    <th>Visit Type</th>
     <th>Where</th>
     <th>Notes</th>
     </tr>
+</thead>
 
     @foreach ($appointments as $appointment)
-      <tr>
-          <td>{{date('D M-d h:iA',strtotime($appointment['startf']))}}</td>
-          <td>{{$appointment['appointment_type']}}</td>
-          <td>{{$appointment['resource']}}</td>
-          <td>{{$appointment['facility']}}</td>
+      <tr class="{{$appointment['display']}}">
+          <td>{{date('m/d/y',strtotime($appointment['startf']))}}</td>
+          <td>{{date('h:ia',strtotime($appointment['startf']))}}</td>
+          <td>{{preg_replace('~\b(\w)|.~', '$1', $appointment['resource'])}}</td>
+          <td>{{ (strtotime($appointment['endf']) - strtotime($appointment['startf']))/60}}</td>
+          <td>{{ preg_replace('~\b(\w)|.~', '$1', $appointment['appointment_type'])}}</td>
+          <td>{{preg_replace('~\b(\w)|.~', '$1', $appointment['facility'])}}</td>
           <td>{{$appointment['notes']}}</td>
       </tr>
     @endforeach
-    </tbody>
 </table>
 @stop

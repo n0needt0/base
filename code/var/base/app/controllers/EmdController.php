@@ -105,12 +105,34 @@ class EmdController extends BaseController {
 
     public function getAppointments($patient_file,$format=false)
     {
+
         $appointments = $schedule = array();
 
-        $res = DB::connection('emds')->table("VIEW_API_Appointment")->where('patient_file', strtoupper($patient_file))->orderBy('start', 'asc')->get();
+        $res = DB::connection('emds')->table("VIEW_API_Appointment")->where('patient_file', strtoupper($patient_file))->orderBy('start', 'desc')->get();
         foreach($res as $r)
         {
+
+            if( strtotime($r->startf) >= strtotime(date('Y-m-d 00:00:00',time())))
+            {
+                $r->display = 'schnormal';
+            }
+              else
+            {
+                $r->display='schhistory';
+            }
+
+            if($r->status == 3)
+            {
+                $r->display = 'schnoshow';
+            }
+
+            if($r->status == 5)
+            {
+                $r->display = 'schcancel';
+            }
+
             $appointments[] = (array)$r;
+
             //unset secure data here
         }
 
