@@ -18,7 +18,8 @@
 .schcancel {color:#808000;}
 </style>
 
-<div id='appontmentdetails' class='wrap appointmentdetails'>
+
+<div id='appontmentdetails' class='wrap appointmentdetails' style="overflow: scroll; width: 800px; height: 100px;">
 <table class="properties wrap">
 <tr>
 <td class="schnormal">Active</th>
