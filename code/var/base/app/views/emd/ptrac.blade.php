@@ -3,7 +3,7 @@
 
 <style type="text/css">
 .wrap {
-   width:700px;
+   width:650px;
    margin:0 auto;
 }
 
@@ -19,7 +19,7 @@
 </style>
 
 
-<div id='appontmentdetails' class='wrap appointmentdetails' style="overflow: scroll; width: 800px; height: 100px;">
+<div id='appontmentdetails' class='wrap appointmentdetails' style="overflow: scroll; width: 700px; height: 100px;">
 <table class="properties wrap">
 <tr>
 <td class="schnormal">Active</th>
