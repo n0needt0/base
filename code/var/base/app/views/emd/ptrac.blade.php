@@ -12,13 +12,21 @@
 
 .appointmentdetails thead{ background-color:#b0c4de;
                     }
-tr.schnormal {color:#000000;}
-tr.schhistory {color:#580000;}
-tr.schnoshow {color:#FF0000;}
-tr.schcancel {color:#808000;}
+.schnormal {color:#000000;}
+.schhistory {color:#580000;}
+.schnoshow {color:#FF0000;}
+.schcancel {color:#808000;}
 </style>
 
 <div id='appontmentdetails' class='wrap appointmentdetails'>
+<table class="properties wrap">
+<tr>
+<td class="schnormal">Active</th>
+<td class="schhistory">History</th>
+<td class="schnoshow">Noshow</th>
+<td class="schcancel">Cancelled</th>
+</tr>
+</table>
 <table class="properties wrap">
 <thead>
     <tr>
@@ -28,7 +36,6 @@ tr.schcancel {color:#808000;}
     <th>Duration</th>
     <th>Visit Type</th>
     <th>Where</th>
-    <th>Notes</th>
     </tr>
 </thead>
 
@@ -40,7 +47,6 @@ tr.schcancel {color:#808000;}
           <td>{{ (strtotime($appointment['endf']) - strtotime($appointment['startf']))/60}}</td>
           <td>{{ preg_replace('~\b(\w)|.~', '$1', $appointment['appointment_type'])}}</td>
           <td>{{preg_replace('~\b(\w)|.~', '$1', $appointment['facility'])}}</td>
-          <td>{{$appointment['notes']}}</td>
       </tr>
     @endforeach
 </table>
