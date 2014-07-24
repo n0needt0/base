@@ -7,6 +7,11 @@
    margin:0 auto;
 }
 
+.inwrap {
+   width:650px;
+   margin:0 auto;
+}
+
 .appointmentdetails{ background-color:#eaeaea;
                     }
 
@@ -19,8 +24,10 @@
 </style>
 
 <h3>EMDs Schedule</h3>
-<div id='appontmentdetails' class='wrap appointmentdetails' style="overflow: scroll; width: 700px; height: 150px;">
-<table class="properties wrap">
+
+<div id='appontmentdetails' class='wrap appointmentdetails'>
+
+<table class="properties" width="100%">
 <tr>
 <td class="schnormal">Active</th>
 <td class="schhistory">History</th>
@@ -28,7 +35,9 @@
 <td class="schcancel">Cancelled</th>
 </tr>
 </table>
-<table class="properties wrap">
+<div id='appontmentdetails' class='inwrap appointmentdetails' style="overflow: scroll; width: 650px; height: 150px;">
+
+<table class="properties inwrap">
 <thead>
     <tr>
     <th>Date</th>
@@ -39,7 +48,7 @@
     <th>Where</th>
     </tr>
 </thead>
-
+<tbody>
     @foreach ($appointments as $appointment)
       <tr class="{{$appointment['display']}}">
           <td>{{date('m/d/y',strtotime($appointment['startf']))}}</td>
@@ -50,5 +59,6 @@
           <td>{{preg_replace('~\b(\w)|.~', '$1', $appointment['facility'])}}</td>
       </tr>
     @endforeach
+    </tbody>
 </table>
 @stop
