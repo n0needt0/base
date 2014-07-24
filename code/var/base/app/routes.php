@@ -11,9 +11,24 @@
 |
 */
 
-Route::group(array('domain' => 'base.helppain.net','domain' => 'base.this.com'), function()
+Route::group(array('domain' => 'base.this.com'), function()
 {
 
+    Route::get('/', 'HomeController@showWelcome');
+
+    Route::controller('users', 'UserController');
+
+    Route::controller('verify', 'VerifyController');
+
+    Route::resource('groups', 'GroupController');
+
+    Route::controller('emd', 'EmdController');
+
+});
+
+
+Route::group(array('domain' => 'base.helppain.net'), function()
+{
 
     Route::get('/', 'HomeController@showWelcome');
 
