@@ -106,6 +106,7 @@ class EmdController extends BaseController {
     public function getAppointments($patient_file,$format=false)
     {
 
+        $patient_file = strtoupper(trim($patient_file));
         $appointments = $schedule = array();
 
         $res = DB::connection('emds')->table("VIEW_API_Appointment")->where('patient_file', strtoupper($patient_file))->orderBy('start', 'desc')->get();
