@@ -26,6 +26,13 @@ Route::group(array('domain' => 'base.this.com'), function()
 
 });
 
+Route::group(array('domain' => 'wb.this.com'), function()
+{
+    Route::get('/', 'WbController@getPage');
+    Route::get('/wb/{page?}', 'WbController@getPage');
+});
+
+
 
 Route::group(array('domain' => 'base.helppain.net'), function()
 {
