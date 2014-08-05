@@ -130,7 +130,7 @@ Class ApiEmdCalendar extends EmdBase{
                     if( self::set_appointment($r,$email) )
                     {
                         $i++;
-                        if((string)$r->status == '5')
+                        if(((string)$r->status == '5') || ((string)$r->status == '0'))
                         {
                             \Log::info("CANCEL appointment on " . date('m-d', $r->startf) . ' ' .  $r->patient_name  . " (" . $r->dob . ") " . $r->appointment_type );
                         }
