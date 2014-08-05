@@ -100,7 +100,7 @@ Class ApiEmdCalendar extends EmdBase{
 
                 //run exceptions
                 //check if status == 5 //rollback all dates to 3 years 365 * 24 * 60 * 60
-                if((string)$r->status == '5')
+                if(((string)$r->status == '5') || ((string)$r->status == '0'))
                 {
                     $r->startf = $r->startf - (3 * 365 * 24 *60 * 60);
                     $r->endf = $r->endf - (3 * 365 * 24 *60 * 60);
