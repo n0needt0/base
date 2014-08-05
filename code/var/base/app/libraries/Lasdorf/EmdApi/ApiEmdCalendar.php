@@ -105,7 +105,6 @@ Class ApiEmdCalendar extends EmdBase{
                     $r->startf = $r->startf - (3 * 365 * 24 *60 * 60);
                     $r->endf = $r->endf - (3 * 365 * 24 *60 * 60);
                     $r->startf = $r->startf - (3 * 365 * 24 *60 * 60);
-                    $force = true;
                 }
 
                 if( $force || empty($lookup) || trim((string)$lookup) != trim((string)$appthash))
