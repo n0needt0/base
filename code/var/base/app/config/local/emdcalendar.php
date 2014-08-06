@@ -6,7 +6,7 @@ return  array(
                 "force"=>false,  //disregard status and run anyway
                 "force_proxy"=>false, //run through proxies of give provider
                 "providers"=>array(
-                                "Ahluwlia, Navneet S."=>array('email'=>"ahluwlia.navneet.calendar@helppain.net", 'proxy'=>array()),
+                                "Ahluwalia, Navneet S."=>array('email'=>"ahluwalia.navneet.calendar@helppain.net", 'proxy'=>array()),
                                 "Azevedo, Michael"=>array('email'=>"azevedo.michael.calendar@helppain.net", 'proxy'=>array()),
                                 "Brose, William"=>array('email'=>"brose.william.calendar@helppain.net", 'proxy'=>array(
                                                 'Gaeta/Brose Consult'=>"Gaeta, Raymond R.",
@@ -15,8 +15,8 @@ return  array(
                                                 'Schonwald/Brose f/u'=>"Schonwald, Gabriel",
                                                 'Azevedo/Brose Consult'=>"Azevedo, Michael",
                                                 'Azevedo/Brose f/u'=>"Azevedo, Michael",
-                                                'Ahluwalia/Brose Consult'=>"Ahluwlia, Navneet S.",
-                                                'Ahluwalia/Brose f/u'=>"Ahluwlia, Navneet S."
+                                                'Ahluwalia/Brose Consult'=>"Ahluwalia, Navneet S.",
+                                                'Ahluwalia/Brose f/u'=>"Ahluwalia, Navneet S."
                                 ) ),
                                 "Gaeta, Raymond R."=>array('email'=>"gaeta.raymond.calendar@helppain.net", 'proxy'=>array(
                                                 'Azevedo/Gaeta Consult'=> "Azevedo, Michael",
