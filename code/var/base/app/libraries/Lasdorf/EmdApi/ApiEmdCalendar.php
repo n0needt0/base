@@ -100,7 +100,7 @@ Class ApiEmdCalendar extends EmdBase{
 
                 //run exceptions
                 //check if status == 5 //rollback all dates to 3 years 365 * 24 * 60 * 60
-                if(((string)$r->status == '5') || ((string)$r->status == '0'))
+                if(((string)$r->status == '5') || ((string)$r->status == '2'))
                 {
                     $r->startf = $r->startf - (3 * 365 * 24 *60 * 60);
                     $r->endf = $r->endf - (3 * 365 * 24 *60 * 60);
@@ -130,11 +130,15 @@ Class ApiEmdCalendar extends EmdBase{
                     if( self::set_appointment($r,$email) )
                     {
                         $i++;
-                        if(((string)$r->status == '5') || ((string)$r->status == '0'))
+                        if((string)$r->status == '5')
                         {
                             \Log::info("CANCEL appointment on " . date('m-d', $r->startf) . ' ' .  $r->patient_name  . " (" . $r->dob . ") " . $r->appointment_type );
                         }
-                        else
+                          elseif((string)$r->status == '2')
+                        {
+                            \Log::info("DELETED appointment on " . date('m-d', $r->startf) . ' ' .  $r->patient_name  . " (" . $r->dob . ") " . $r->appointment_type );
+                        }
+                          else
                         {
                             \Log::info("SET appointment on " . date('m-d', $r->startf) . ' ' .  $r->patient_name  . " (" . $r->dob . ") " . $r->appointment_type );
                         }
