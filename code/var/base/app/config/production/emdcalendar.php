@@ -3,7 +3,7 @@ return  array(
                 "dryrun"=>false,  //run but not email
                 "test"=>false,  //test setup
                 "providerf"=>"", //filter to provider
-                "force"=>false,  //disregard status and run anyway
+                "force"=>true,  //disregard status and run anyway
                 "force_proxy"=>false, //run through proxies of give provider
                 "providers"=>array(
                                 "Ahluwalia, Navneet S."=>array('email'=>"ahluwalia.navneet.calendar@helppain.net", 'proxy'=>array()),
