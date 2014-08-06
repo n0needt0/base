@@ -157,6 +157,7 @@ Class ApiEmdCalendar extends EmdBase{
     static private function set_appointment($r,$email )
     {
 
+        sleep(1);
         $message="BEGIN:VCALENDAR\n";
         $message.="VERSION:2.0\n";
         $message.="CALSCALE:GREGORIAN\n";
