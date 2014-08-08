@@ -5,7 +5,7 @@ return  array(
                 "providers"=>array(
                                 "Ahluwalia, Navneet S."=>array('email'=>"ahluwalia.navneet.cal@helppain.net"),
                                 "Azevedo, Michael"=>array('email'=>"azevedo.michael.cal@helppain.net"),
-                                //"Brose, William"=>array('email'=>"brose.william.cal@helppain.net"),
+                                "Brose, William"=>array('email'=>"brose.william.cal@helppain.net"),
                                 "Gaeta, Raymond R."=>array('email'=>"gaeta.raymond.cal@helppain.net"),
                                 "Schonwald, Gabriel"=>array('email'=>"schonwald.gabriel.cal@helppain.net")
                 ),
