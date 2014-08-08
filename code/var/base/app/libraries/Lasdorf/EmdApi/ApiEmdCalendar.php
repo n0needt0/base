@@ -270,7 +270,7 @@ Class ApiEmdCalendar extends EmdBase{
         $md5 = trim(md5(serialize($r)));
         $force = Config::get('emdcalendar.force');
 
-        if( !empty($cache) && (trim($cache->md5) == md5) && empty($force))
+        if( !empty($cache) && (trim($cache->md5) == $md5) && empty($force))
         {
             //already done
             $r->action = "SKIP";
