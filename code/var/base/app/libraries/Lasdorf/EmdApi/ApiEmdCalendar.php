@@ -18,7 +18,8 @@ Class ApiEmdCalendar extends EmdBase{
     {
         $result = Redis::get($key);
 
-        if(empty(trim($result)))
+        $result = trim($result);
+        if(empty($result))
         {
             \Log::info("miss $key");
             return false;
