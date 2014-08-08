@@ -29,9 +29,9 @@ COMMAND="php /var/www/base/artisan command:dayees --env=production && curl \"htt
 ENTRY="0 1 * * 3 $COMMAND"; 
 echo "$ENTRY" >> $FILE; 
 
-COMMAND="php /var/www/base/artisan command:emdcalendar --env=production && curl \"http://www.cronrat.com/r/7n9GvvYu\" --data-urlencode \"rat=emdcalendar\" --data-urlencode \"crontab=*/5 * * * *\" --data-urlencode \"toutc=-7\""; 
-ENTRY="*/30 * * * * $COMMAND"; 
-echo "$ENTRY" >> $FILE; 
+#COMMAND="php /var/www/base/artisan command:emdcalendar --env=production && curl \"http://www.cronrat.com/r/7n9GvvYu\" --data-urlencode \"rat=emdcalendar\" --data-urlencode \"crontab=*/5 * * * *\" --data-urlencode \"toutc=-7\""; 
+#ENTRY="*/30 * * * * $COMMAND"; 
+#echo "$ENTRY" >> $FILE; 
 
 crontab $FILE;
 rm $FILE

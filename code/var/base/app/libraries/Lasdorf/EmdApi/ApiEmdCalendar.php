@@ -18,176 +18,211 @@ Class ApiEmdCalendar extends EmdBase{
     {
         $result = Redis::get($key);
 
-        if($result === false)
+        if(empty(trim($result)))
         {
             \Log::info("miss $key");
             return false;
         }
         \Log::info("hit $key");
-        return trim(unserialize($result));
+        $r = unserialize($result);
+
+        return $r;
     }
 
-    protected static function store($key, $value, $ttl)
+    protected static function store($key, $value, $ttlsec)
     {
 
         $r = Redis::set($key, serialize($value));
 
         if( !$r )
         {
-            \Log::info("failed store $key for $ttl sec");
+            \Log::info("failed store $key for $ttlsec sec");
             return;
         }
-        Redis::expire($key, $ttl);
+        Redis::expire($key, $ttlsec);
 
-        \Log::info("stored $key for $ttl sec");
+        \Log::info("stored $key for $ttlsec sec");
     }
+
+
 
     /**
      * Get calendar from today 0:0:0
      */
     static public function get_calendar()
     {
-        $providers = Config::get('emdcalendar.providers');
-        $providerf = Config::get('emdcalendar.providerf');
-        $force = Config::get('emdcalendar.force');
-        $force_proxy = Config::get('emdcalendar.force_proxy');
-        $test = Config::get('emdcalendar.test');
+        $config = Config::get('emdcalendar');
 
         $result = array();
-        $res = DB::connection('emds')->table("VIEW_API_Appointment")->where('startyyyymmdd', '>=', date('Ymd', time()))->where('patient_file','<>','')->where('patient_id','<>','0000000000')->whereIn('resource',array_keys($providers))->orderBy('startyyyymmdd', 'asc')->get();
-        $i = 0;
+        $res = DB::connection('emds')->table("VIEW_API_Appointment")->where('startyyyymmdd', '>=', date('Ymd', time()))->orderBy('startyyyymmdd', 'asc')->get();
+        $insert=$block=$move=$cancel=$update=0;
+        $dot = 0;
+        $humpster = array("wants water"=>"drink", "hungry"=>"eat", "money"=>"negative");
 
         foreach($res as $r)
         {
-            usleep(100);
-
-            if($test && !empty($providerf))
+            echo '.';
+            $dot++;
+            if($dot%80 == 0)
             {
-                if( $r->resource == $providerf)
-                {
-                    $filter = true;
-                }
-                else
-                {
-                    $filter = false;
-                }
-            }
-            else
-            {
-                $filter = true;
+                $dot =0;
+                echo "\n";
             }
 
-            if($filter && !empty($providers[$r->resource]))
+            usleep(100); //unload a little
+
+            //set unix timestamps in addtion to formattes
+            $r->start_ts = strtotime($r->startf);
+            $r->end_ts = strtotime($r->endf);
+
+            if(!empty($config['providers'][$r->resource])) //only work with configured providers
             {
-
-                if($test && $force_proxy)
+                //cancels and deletes
+                if((string)$r->status == '5' || (string)$r->isdeleted == '1')
                 {
-                    $proxies = array_keys($providers[$r->resource]['proxy']);
-                    $randproxy = rand(0, count($proxies)-1);
-                    \Log::info('force proxy to ' . $proxies[$randproxy]);
-                    $r->appointment_type = $proxies[$randproxy];
-                }
+                    //get current email
+                    $email = $config['providers'][$r->resource]['email'];
 
-                //create hash
-                $appthash = md5(serialize($r)) . "\n";
-                //check if key exists for given "APPT:ID"
-                $key = "APPT:" . $r->appointment_id;
-                $lookup = self::lookup($key);
+                    //cancel appointment by setting timestamps 3 years back
+                    $r->start_ts = strtotime($r->startf) - 3*365*24*60*60;
+                    $r->end_ts = strtotime($r->endf) - 3*365*24*60*60;
+                    $r->action = "CANCEL";
+                    $r->subject = "CANCEL: " . $r->patient_name  . " (" . $r->dob . ") " . $r->appointment_type;
 
-                //modify some time stamps nto unix types
-                $r->startf = strtotime($r->startf);
-                $r->endf = strtotime($r->endf);
+                    $r->email = $email;
 
-                //run exceptions
-                //check if status == 5 //rollback all dates to 3 years 365 * 24 * 60 * 60
-                if(((string)$r->status == '5') || ((string)$r->status == '2'))
-                {
-                    $r->startf = $r->startf - (3 * 365 * 24 *60 * 60);
-                    $r->endf = $r->endf - (3 * 365 * 24 *60 * 60);
-                    $r->startf = $r->startf - (3 * 365 * 24 *60 * 60);
-                }
-
-                if( $force || empty($lookup) || trim((string)$lookup) != trim((string)$appthash))
-                {
-                    //save appontment key ttl to appointment + 1 day
-                    //SEE I IT IS PROXY
-
-                    if(!empty($providers[$r->resource]['proxy']) && !empty($providers[$r->resource]['proxy'][$r->appointment_type]))
+                    if(!self::is_modified($r))
                     {
-                        //this is proxy calendar
-                        //this a small hack to make appointment d to be bit different
-                        $r->appointment_id = $r->appointment_id . md5($providers[$r->resource]['email']);
+                        continue;
+                    }
 
-                        $email = $providers[$providers[$r->resource]['proxy'][$r->appointment_type]]['email'];
-                        \Log::info("PROXY " . $r->appointment_type . " proxy provider from " . $providers[$r->resource]['email'] . " to " . $providers[$providers[$r->resource]['proxy'][$r->appointment_type]]['email'] );
+                    $r->md5 = md5(serialize($r));
+                    self::debug(print_r($r, true));
+                    $cancel++;
+                    self::set_appointment($r, $email);
+                    continue;
+                }
+
+                // block
+                if( (string)$r->status == '1' && (string)$r->isdeleted == '0' )
+                {
+                    //get current email
+                    $email = $config['providers'][$r->resource]['email'];
+
+                    //cancel appointment by setting timestamps 3 years back
+                    $r->action = "BLOCK";
+                    $r->subject = "BLOCK: " . $r->appointment_type;
+
+                    $r->email = $email;
+
+                    if(!self::is_modified($r))
+                    {
+                        continue;
+                    }
+
+                    $r->md5 = md5(serialize($r));
+                    $block++;
+                    self::debug(print_r($r, true));
+                    self::set_appointment($r, $email);
+                    continue;
+                }
+
+
+                if((string)$r->isdeleted == '0' && ( (string)$r->status == '0' || (string)$r->status == '2' ) ) //we move everything
+                {
+                    //see if it is new or update
+                    $key = self::make_key($r);
+                    $cache = self::lookup($key);
+                    $email = $config['providers'][$r->resource]['email'];
+
+                    if(empty($cache) || empty($cache->email))
+                    {
+
+                        echo "do new
+                                        \n";
+                        //new appontment set it
+                        $r->action = "NEW";
+                        $r->subject = $r->patient_name  . " (" . $r->dob . ") " . $r->appointment_type;
+                        $r->md5 = md5(serialize($r));
+                        $insert++;
+                        self::debug(print_r($r, true));
+                        self::set_appointment($r, $email);
+                        continue;
                     }
                     else
                     {
-                        $email = $providers[$r->resource]['email'];
-                    }
+                        //see if modified and if moved from one account to other delete the other
+                        if($cache->email != $email )
+                        {
+                            //delete the old one
+                            //cancel appointment by setting timestamps 3 years back
+                            $r->start_ts = strtotime($r->startf) - 3*365*24*60*60;
+                            $r->end_ts = strtotime($r->endf) - 3*365*24*60*60;
+                            $r->action = "MOVE";
+                            $r->subject = $r->patient_name  . " (" . $r->dob . ") " . $r->appointment_type;
+                            $r->md5 = "RESET"; //needs to be set like this so next will pick up update
+                            self::debug(print_r($r, true));
+                            $move++;
+                            self::set_appointment($r, $cache->email);
+                        }
 
+                        //now modify accordingly
+                        $r->start_ts = strtotime($r->startf);
+                        $r->end_ts = strtotime($r->endf);
+                        $r->action = "UPDATE";
+                        $r->subject = $r->patient_name  . " (" . $r->dob . ") " . $r->appointment_type;
 
-                    if( self::set_appointment($r,$email) )
-                    {
-                        $i++;
-                        if((string)$r->status == '5')
+                        $r->email = $email;
+
+                        if(!self::is_modified($r))
                         {
-                            \Log::info("CANCEL appointment on " . date('m-d', $r->startf) . ' ' .  $r->patient_name  . " (" . $r->dob . ") " . $r->appointment_type );
+                            continue;
                         }
-                          elseif((string)$r->status == '2')
-                        {
-                            \Log::info("DELETED appointment on " . date('m-d', $r->startf) . ' ' .  $r->patient_name  . " (" . $r->dob . ") " . $r->appointment_type );
-                        }
-                          else
-                        {
-                            \Log::info("SET appointment on " . date('m-d', $r->startf) . ' ' .  $r->patient_name  . " (" . $r->dob . ") " . $r->appointment_type );
-                        }
-                        self::store($key, $appthash, 5*60*60*24 );
+
+                        //***so it matches md5 on next run******
+                        unset($r->md5);
+                        $r->action = "UPDATE";
+                        $md5 = md5(serialize($r));
+                        $r->md5 = $md5;
+                        //*****************************************
+
+                        $update++;
+                        self::debug(print_r($r, true));
+                        self::set_appointment($r, $email);
+                        continue;
+
                     }
                 }
                 else
                 {
-                    echo "skip\n";
+                    \Log::info("INVALID PROVIDER: " . $r->resource);
                 }
             }
         }
-        echo "Updated $i calendar events. Exiting..";
+
+        echo "\nProcessed...NEW: $insert, BLOCK:$block, CANCEL:$cancel, UPDATE:$update, MOVE:$move \n";
+    }
+
+    static private function make_key($appointment)
+    {
+        return "APT:" . $appointment->appointment_id;
     }
 
     static private function set_appointment($r,$email )
     {
-
-        sleep(1);
+        $r->email = $email;
         $message="BEGIN:VCALENDAR\n";
         $message.="VERSION:2.0\n";
         $message.="CALSCALE:GREGORIAN\n";
         $message.="METHOD:REQUEST\n";
         $message.="BEGIN:VEVENT\n";
-
-        //roll back on cancel 3 years
-        if((string)$r->status == '5')
-        {
-
-            $message.="DTSTART:" . date('Ymd\THis', ($r->startf - 3*365*24*60*60)) . "\n";
-        }
-        else
-        {
-            $message.="DTSTART:" . date('Ymd\THis', $r->startf) . "\n";
-        }
-        if((string)$r->status == '5')
-        {
-            $message.="DTEND:" . date('Ymd\THis', ($r->endf - 3*365*24*60*60)) . "\n";
-        }
-        else
-        {
-            $message.="DTEND:" . date('Ymd\THis', $r->endf) . "\n";
-        }
-
+        $message.="DTSTART:" . date('Ymd\THis', $r->start_ts) . "\n";
+        $message.="DTEND:" . date('Ymd\THis', $r->end_ts) . "\n";
         $message.="DTSTAMP:" . date('Ymd\THis', time()) . "\n";
         $message.="ORGANIZER;CN=Emd:mailto:emd@helppain.net\n";
         $message.="UID:" . $r->appointment_id . "\n";
         $message.="ATTENDEE;PARTSTAT=NEEDS-ACTION;RSVP= FALSE;CN=Emd:mailto:emd@helppain.net\n";
-        $message.="DESCRIPTION:" . $r->patient_name  . " (" . $r->dob . ") " . $r->appointment_type . "\n";
+        $message.="DESCRIPTION:" . $r->subject . "\n";
         $message.="LOCATION: " . $r->facility . "\n";
         $message.="SEQUENCE:0\n";
         $message.="STATUS:CONFIRMED\n";
@@ -205,27 +240,41 @@ Class ApiEmdCalendar extends EmdBase{
         $headers .= "Content-Transfer-Encoding: 7bit";
 
         /*mail content , attaching the ics detail in the mail as content*/
-        if((string)$r->status == '5')
-        {
-            $subject = 'CANCEL';
-        }
-        else
-        {
-            $subject = $r->patient_name  . " ( " . $r->dob . " ) " . $r->appointment_type;
-        }
-
-        $subject = html_entity_decode($subject, ENT_QUOTES, 'UTF-8');
+        $subject = html_entity_decode($r->subject, ENT_QUOTES, 'UTF-8');
+        $key = self::make_key($r);
 
         if(Config::get('emdcalendar.dryrun'))
         {
-            return true;
+            \Log::info("Dry run " . print_r(array("email"=>$email, "subject"=>$subject, "message"=>$message, "headers"=>$headers), true));
+            self::store($key, $r, 60*60*24);
+            return;
         }
 
         if( $res = mail($email, $subject, $message, $headers) )
         {
-            return true;
+            //set cache only if sent
+            \Log::info("eMailed " . print_r(array("email"=>$email, "subject"=>$subject, "message"=>$message, "headers"=>$headers), true));
+            self::store($key, $r, 60*60*24);
         }
 
-        return false;
+        return;
+    }
+
+    static function is_modified($r)
+    {
+        //see if needs processing
+        $key = self::make_key($r);
+        $cache = self::lookup($key);
+
+        $md5 = md5(serialize($r));
+
+        if( !empty($cache) && trim((string)$cache->md5) == trim((string)$md5) &&empty(Config::get('emdcalendar.force')))
+        {
+            //already done
+            $r->action = "SKIP";
+            self::debug(print_r($r, true));
+            return false;
+        }
+        return true;
     }
 }
