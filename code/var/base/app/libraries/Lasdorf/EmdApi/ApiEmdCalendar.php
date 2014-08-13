@@ -223,11 +223,11 @@ Class ApiEmdCalendar extends EmdBase{
         $message.="ORGANIZER;CN=Emd:mailto:emd@helppain.net\n";
         $message.="UID:" . $r->appointment_id . "\n";
         $message.="ATTENDEE;PARTSTAT=NEEDS-ACTION;RSVP= FALSE;CN=Emd:mailto:emd@helppain.net\n";
-        $message.="DESCRIPTION:" . $r->subject . "\n";
+        $message.="DESCRIPTION:" . $r->notes . "\n";
         $message.="LOCATION: " . $r->facility . "\n";
         $message.="SEQUENCE:0\n";
         $message.="STATUS:CONFIRMED\n";
-        $message.="SUMMARY:" . $r->notes . "\n";
+        $message.="SUMMARY:" . $r->subject . "\n";
         $message.="TRANSP:OPAQUE\n";
         $message.="END:VEVENT\n";
         $message.="END:VCALENDAR";
