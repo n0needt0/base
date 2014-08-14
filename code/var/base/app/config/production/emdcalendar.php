@@ -7,6 +7,7 @@ return  array(
                                 "Azevedo, Michael"=>array('email'=>"azevedo.michael.cal@helppain.net"),
                                 "Brose, William"=>array('email'=>"brose.william.cal@helppain.net"),
                                 "Gaeta, Raymond R."=>array('email'=>"gaeta.raymond.cal@helppain.net"),
-                                "Schonwald, Gabriel"=>array('email'=>"schonwald.gabriel.cal@helppain.net")
+                                "Schonwald, Gabriel"=>array('email'=>"schonwald.gabriel.cal@helppain.net"),
+                                "Corona, Marta Elena"=>array('email'=>'corona.marta.cal@helppain.net')
                 ),
 );
