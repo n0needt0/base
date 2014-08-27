@@ -1,0 +1,55 @@
+.sm-screen {
+	display: none;
+}
+@media (max-width: 1024px) {
+	.call-to-action {
+		text-align: center;
+	}
+	.cta2 .text-shift {
+		text-align: center;
+	}
+	.cta2 span {
+		line-height: 25px;
+	}
+	.small-only-text-center {
+		text-align: center;
+	}
+	}
+@media (max-width: 984px) {
+	#path-hold-over, #path-hold-under, #section1, #finish, .lg-screen  {
+		display: none;
+	}
+	.sm-screen {
+		display: block;
+	}
+	.section {
+		padding-bottom: 40px;
+	}
+	.content-row {
+		text-align: center;
+	}
+}
+
+@media (max-width: 790px) {
+	.subnav .suite-btn {
+		width: 100%;
+		border: none;
+		border-bottom: 1px solid #3e8198;
+	}
+	.suite-arrow {
+		display: none;
+	}
+}
+
+@media (max-width: 640px) {
+	p.message {
+		margin-top: 20px;
+	}
+	#platform-feature-list {
+		background-image: none;
+		text-align: center;
+	}
+	#secondary-displays, #next-path-analysis {
+		text-align: center;
+	}
+}

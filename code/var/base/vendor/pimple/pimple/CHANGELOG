@@ -1,6 +1,7 @@
-* 2.1.1 (2014-XX-XX)
+* 2.1.1 (2014-07-24)
 
- * n/a
+ * fixed compiler warnings for the C extension
+ * fixed code when dealing with circular references
 
 * 2.1.0 (2014-06-24)
 

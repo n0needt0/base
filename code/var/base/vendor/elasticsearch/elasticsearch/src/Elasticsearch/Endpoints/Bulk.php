@@ -47,9 +47,7 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
                 $bulkBody .= $this->serializer->serialize($item)."\n";
             }
             $body = $bulkBody;
-       //     print_r($body);
-       //     die;
-       }
+        }
 
         $this->body = $body;
         return $this;

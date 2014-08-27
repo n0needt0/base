@@ -34,7 +34,7 @@ ClassLoader::addDirectories(array(
 
 $logFile = 'log-'.php_sapi_name().'.log';
 
-Log::useDailyFiles('/var/log/base/'.$logFile);
+Log::useDailyFiles(Config::get('logging.dir') .$logFile, Config::get('logging.keep_days'));
 
 /*
 |--------------------------------------------------------------------------
