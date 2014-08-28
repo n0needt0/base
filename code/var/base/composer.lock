@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cartalyst/sentry.git",
-                "reference": "1335033432147772c05a509981563409cb3c3d3b"
+                "reference": "57eb4ec33b342d621d8e7e499492f797443c0428"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cartalyst/sentry/zipball/1335033432147772c05a509981563409cb3c3d3b",
-                "reference": "1335033432147772c05a509981563409cb3c3d3b",
+                "url": "https://api.github.com/repos/cartalyst/sentry/zipball/57eb4ec33b342d621d8e7e499492f797443c0428",
+                "reference": "57eb4ec33b342d621d8e7e499492f797443c0428",
                 "shasum": ""
             },
             "require": {
@@ -104,7 +104,7 @@
                 "laravel",
                 "security"
             ],
-            "time": "2014-07-23 20:35:12"
+            "time": "2014-08-28 12:03:39"
         },
         {
             "name": "classpreloader/classpreloader",

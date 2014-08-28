@@ -8,6 +8,7 @@ return  array(
                                // "Brose, William"=>array('email'=>"dev.brose.william.cal@helppain.net"),
                                // "Gaeta, Raymond R."=>array('email'=>"dev.gaeta.raymond.cal@helppain.net"),
                                // "Schonwald, Gabriel"=>array('email'=>"dev.schonwald.gabriel.cal@helppain.net"),
-                                "Corona, Marta Elena"=>array('email'=>'dev.corona.marta.cal@helppain.net')
+                               //"Corona, Marta Elena"=>array('email'=>'dev.corona.marta.cal@helppain.net')
+                               "Kinsman, Sean"=>array('email'=>'dev.kinsman.sean.cal@helppain.net')
                 ),
 );
