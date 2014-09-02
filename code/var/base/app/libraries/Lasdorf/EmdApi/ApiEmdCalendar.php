@@ -247,7 +247,7 @@ Class ApiEmdCalendar extends EmdBase{
         if(Config::get('emdcalendar.dryrun'))
         {
             \Log::info("Dry run " . print_r(array("email"=>$email, "subject"=>$subject, "message"=>$message, "headers"=>$headers), true));
-            self::store($key, $r, 60*60*24);
+            self::store($key, $r, 60*60*24*7);
             return;
         }
 
@@ -255,7 +255,7 @@ Class ApiEmdCalendar extends EmdBase{
         {
             //set cache only if sent
             \Log::info("eMailed " . print_r(array("email"=>$email, "subject"=>$subject, "message"=>$message, "headers"=>$headers), true));
-            self::store($key, $r, 60*60*24);
+            self::store($key, $r, 60*60*24*7);
         }
 
         return;
