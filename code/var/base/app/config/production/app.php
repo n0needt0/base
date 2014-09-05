@@ -7,7 +7,8 @@ return array(
 
 'emdtobilltrac'=>array(
     'alpha_owner'=>array(
-                            array('start'=>'a', 'end'=>'z', 'owner'=>'jalvarado')
+                            array('start'=>'a', 'end'=>'j', 'owner'=>'jalvarado'),
+                            array('start'=>'k', 'end'=>'z', 'owner'=>'tmiles')
                     ),
     'insurance_owner'=>array(
                             array('pattern'=>'liberty_ZZZZ', 'owner'=>'ktrylovich ')
