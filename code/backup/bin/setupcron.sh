@@ -25,7 +25,7 @@ COMMAND="php /var/www/base/artisan command:dayemd --env=production && curl \"htt
 ENTRY="0 1 * * 1,2,3,4,5 $COMMAND"; 
 echo "$ENTRY" >> $FILE; 
 
-COMMAND="php /var/www/base/artisan command:dayees --env=production && curl \"http://www.cronrat.com/r/7n9GvvYu\" --data-urlencode \"rat=dayes\" --data-urlencode \"crontab=0 1 * * 3\" --data-urlencode \"toutc=-7\""; 
+COMMAND="php /var/www/base/artisan command:dayes --env=production && curl \"http://www.cronrat.com/r/7n9GvvYu\" --data-urlencode \"rat=dayes\" --data-urlencode \"crontab=0 1 * * 3\" --data-urlencode \"toutc=-7\""; 
 ENTRY="0 1 * * 3 $COMMAND"; 
 echo "$ENTRY" >> $FILE; 
 
