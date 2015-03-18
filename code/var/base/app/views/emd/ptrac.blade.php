@@ -66,9 +66,9 @@
           <td class="shccol" data="{{preg_replace('~\b(\w)|.~', '$1', $appointment['notes'])}}">
           <?php
             if(trim($appointment['notes']) <> "" ){
-                    //if longer than 10 chars
+                    //if longer than 100chars
                    if(strlen(trim($appointment['notes'])) > 100){
-                       echo "<a href=\"#\" class=\"opennotes\">" . substr(trim($appointment['notes']),0,100  . "...</a>";
+                       echo "<a href=\"#\" class=\"opennotes\">" . substr(trim($appointment['notes']),0,100) . "...</a>";
                    }else{
                         echo "<a href=\"#\" class=\"opennotes\">" . trim($appointment['notes']) . "</a>";
                    }
