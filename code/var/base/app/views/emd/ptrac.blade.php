@@ -48,6 +48,7 @@
     <th class="shccol">Duration</th>
     <th class="shccol">Visit Type</th>
     <th class="shccol">Where</th>
+    <th class="shccol">Notes</th>
     </tr>
 </thead>
 </table>
@@ -62,6 +63,20 @@
           <td class="shccol">{{ (strtotime($appointment['endf']) - strtotime($appointment['startf']))/60}}</td>
           <td class="shccol">{{ preg_replace('~\b(\w)|.~', '$1', $appointment['appointment_type'])}}</td>
           <td class="shccol">{{preg_replace('~\b(\w)|.~', '$1', $appointment['facility'])}}</td>
+          <td class="shccol" data="{{preg_replace('~\b(\w)|.~', '$1', $appointment['notes'])}}">
+          <?php
+            if(trim($appointment['notes']) <> "" ){
+                    //if longer than 10 chars
+                   if(len(trim($appointment['notes'])) > 10 ){
+                       echo "<a href=\"#\" class=\"opennotes\">" . substr(trim($appointment['notes']),0,10)  . "...</a>";
+                   }else{
+                        echo "<a href=\"#\" class=\"opennotes\">" . trim($appointment['notes']) . "</a>";
+                   }
+            }else{
+                echo "&nbsp;";
+            }
+          ?>
+          </td>
       </tr>
     @endforeach
     </tbody>
