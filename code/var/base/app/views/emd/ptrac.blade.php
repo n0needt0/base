@@ -68,7 +68,7 @@
             if(trim($appointment['notes']) <> "" ){
                     //if longer than 10 chars
                    if(strlen(trim($appointment['notes'])) > 100){
-                       echo "<a href=\"#\" class=\"opennotes\">" . substr(trim($appointment['notes']),0,10)  . "...</a>";
+                       echo "<a href=\"#\" class=\"opennotes\">" . substr(trim($appointment['notes']),0,100  . "...</a>";
                    }else{
                         echo "<a href=\"#\" class=\"opennotes\">" . trim($appointment['notes']) . "</a>";
                    }
