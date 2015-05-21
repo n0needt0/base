@@ -126,7 +126,7 @@ class EmdController extends BaseController {
                 $r->display = 'schnoshow';
             }
 
-            if($r->status == 5 || $r->status == 2)
+            if($r->status == 5)
             {
                 $r->display = 'schcancel';
             }
