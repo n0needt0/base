@@ -130,7 +130,7 @@ class EmdController extends BaseController {
             {
                 $r->display = 'schcancel';
             }
-get
+
             $appointments[] = (array)$r;
 
             //unset secure data here
