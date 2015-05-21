@@ -109,7 +109,7 @@ class EmdController extends BaseController {
         $patient_file = strtoupper(trim($patient_file));
         $appointments = $schedule = array();
 
-        $res = DB::connection('emds')->table("VIEW_API_Appointment")->where('patient_file', strtoupper($patient_file))->where('isdeleted','=','0')->orderBy('start', 'desc')->get();
+        $res = DB::connection('emds')->table("VIEW_API_Appointment")->where('patient_file', strtoupper($patient_file))->where('isdeleted',0)->orderBy('start', 'desc')->get();
         foreach($res as $r)
         {
             if( strtotime($r->startf) >= strtotime(date('Y-m-d 00:00:00',time())))
