@@ -198,7 +198,7 @@ Class ApiEmdCalendar extends EmdBase{
                         $r->action = "UPDATE";
                         $md5 = md5(serialize($r));
                         $r->md5 = $md5;
-                        //****************************************
+                        //*************************************
 
                         $update++;
                         self::debug(print_r($r, true));
