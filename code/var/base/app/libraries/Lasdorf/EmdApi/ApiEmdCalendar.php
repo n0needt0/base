@@ -101,6 +101,10 @@ Class ApiEmdCalendar extends EmdBase{
                     self::debug(print_r($r, true));
                     $cancel++;
                     self::set_appointment($r, $email);
+                    if ($r->appointment_type == 'P&S Exam'){
+                        self::set_appointment($r, 'kyawary@helppain.net');
+                    }
+
                     continue;
                 }
 
@@ -125,6 +129,9 @@ Class ApiEmdCalendar extends EmdBase{
                     $block++;
                     self::debug(print_r($r, true));
                     self::set_appointment($r, $email);
+                    if ($r->appointment_type == 'P&S Exam'){
+                        self::set_appointment($r, 'kyawary@helppain.net');
+                    }
                     continue;
                 }
 
@@ -148,6 +155,9 @@ Class ApiEmdCalendar extends EmdBase{
                         $insert++;
                         self::debug(print_r($r, true));
                         self::set_appointment($r, $email);
+                        if ($r->appointment_type == 'P&S Exam'){
+                            self::set_appointment($r, 'kyawary@helppain.net');
+                        }
                         continue;
                     }
                     else
@@ -165,6 +175,9 @@ Class ApiEmdCalendar extends EmdBase{
                             self::debug(print_r($r, true));
                             $move++;
                             self::set_appointment($r, $cache->email);
+                            if ($r->appointment_type == 'P&S Exam'){
+                                self::set_appointment($r, 'kyawary@helppain.net');
+                            }
                         }
 
                         //now modify accordingly
@@ -190,6 +203,9 @@ Class ApiEmdCalendar extends EmdBase{
                         $update++;
                         self::debug(print_r($r, true));
                         self::set_appointment($r, $email);
+                        if ($r->appointment_type == 'P&S Exam'){
+                          self::set_appointment($r, 'kyawary@helppain.net');
+                       }
                         continue;
 
                     }
