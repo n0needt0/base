@@ -60,6 +60,11 @@ Class MoveEmdBillTrac extends MoveEmdBase{
 
   public function _create($refid, $invoice, $charges=array(), $payments=array())
   {
+      //TODO if we want to add all new emd tix to billtrack remove this line
+
+      return false;
+
+
       if($res = $this->is_billtrac_exists($invoice->InvoiceNumber_EMD))
       {
            //already created
@@ -89,6 +94,7 @@ Class MoveEmdBillTrac extends MoveEmdBase{
 
 
       try{
+
 
              $time = $changetime = time() * 1000000;
 
