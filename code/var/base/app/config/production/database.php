@@ -48,7 +48,7 @@ return array(
 
                                 'emds' => array(
                                                 'driver'   => 'sqlsrv',
-                                                'host'     => '10.10.0.176:1433',
+                                                'host'     => '10.10.0.179:1433',
                                                 'database' => 'TopsData',
                                                 'username' => 'apps',
                                                 'password' => 'n0needt0',

@@ -1,6 +1,6 @@
 <?php
 return  array(
-                "dryrun"=>false,  //run but not email
+                "dryrun"=>true,  //run but not email
                 "force"=>false,  //disregard status and run anyway
                 "providers"=>array(
                                 "Ahluwalia, Navneet S."=>array('email'=>"ahluwalia.navneet.cal@helppain.net"),
