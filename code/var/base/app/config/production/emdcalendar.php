@@ -10,6 +10,6 @@ return  array(
                                 "Schonwald, Gabriel"=>array('email'=>"schonwald.gabriel.cal@helppain.net"),
                                 "Corona, Marta Elena"=>array('email'=>'corona.marta.cal@helppain.net'),
                                 "Kinsman, Sean"=>array('email'=>'kinsman.sean.cal@helppain.net'),
-                                "Robert, Cluff"=>array('email'=>'cluff.robert.cal@helppain.net')
+                                "Cluff, Robert"=>array('email'=>'cluff.robert.cal@helppain.net')
                 ),
 );
