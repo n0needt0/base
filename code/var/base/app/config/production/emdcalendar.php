@@ -9,7 +9,7 @@ return  array(
                                 "Gaeta, Raymond R."=>array('email'=>"gaeta.raymond.cal@helppain.net"),
                                 "Schonwald, Gabriel"=>array('email'=>"schonwald.gabriel.cal@helppain.net"),
                                 "Corona, Marta Elena"=>array('email'=>'corona.marta.cal@helppain.net'),
-                                "Kinsman, Sean"=>array('email'=>'kinsman.sean.cal@helppain.net')
-
+                                "Kinsman, Sean"=>array('email'=>'kinsman.sean.cal@helppain.net'),
+                                "Robert, Cluff"=>array('email'=>'cluff.robert.cal@helppain.net')
                 ),
 );
