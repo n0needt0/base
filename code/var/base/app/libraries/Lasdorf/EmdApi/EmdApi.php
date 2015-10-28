@@ -41,6 +41,11 @@ Class EmdApi extends EmdBase{
         \Log::info("stored $key for $ttl sec");
     }
 
+    static public function save_table_to_csv($table, $path){
+        // $this->getConnection()->getSchemaBuilder()->getColumnListing($table)
+
+    }
+
     /**
      * Selects meta data associated with invoices
      */

@@ -3,8 +3,8 @@
 		"laravel/framework": "4.1.*",
 		"cartalyst/sentry": "2.0.*",
 		"lj4/redbean-laravel4": "dev-master",
-		"elasticsearch/elasticsearch": "~1.0"
-		
+		"elasticsearch/elasticsearch": "~1.0",
+		"league/csv":"7.1.2"
 	},
 	"autoload": {
 		"classmap": [

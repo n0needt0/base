@@ -26,6 +26,7 @@ use Cartalyst\Sentry\Users\PasswordRequiredException;
 use Cartalyst\Sentry\Users\UserAlreadyActivatedException;
 use Cartalyst\Sentry\Users\UserExistsException;
 use Cartalyst\Sentry\Users\UserInterface;
+use DateTime;
 
 class User extends Model implements UserInterface {
 
@@ -170,7 +171,7 @@ class User extends Model implements UserInterface {
 	 */
 	public function getPassword()
 	{
-		return $this->{$this->getPasswordName()};
+		return $this->password;
 	}
 
 	/**
@@ -360,7 +361,7 @@ class User extends Model implements UserInterface {
 			return false;
 		}
 
-		return $persistCode == $this->persist_code;
+		return $persistCode === $this->persist_code;
 	}
 
 	/**
@@ -397,7 +398,7 @@ class User extends Model implements UserInterface {
 		{
 			$this->activation_code = null;
 			$this->activated       = true;
-			$this->activated_at    = $this->freshTimestamp();
+			$this->activated_at    = new DateTime;
 			return $this->save();
 		}
 
@@ -442,7 +443,7 @@ class User extends Model implements UserInterface {
 	}
 
 	/**
-	 * Attempts to reset a user's password by matching
+	 * Attemps to reset a user's password by matching
 	 * the reset code generated with the user's.
 	 *
 	 * @param  string  $resetCode
@@ -492,22 +493,6 @@ class User extends Model implements UserInterface {
 		return $this->userGroups;
 	}
 
-    /**
-     * Clear the cached permissions attribute.
-     */
-    public function invalidateMergedPermissionsCache()
-    {
-		$this->mergedPermissions = null;
-    }
-
-    /**
-     * Clear the cached user groups attribute.
-     */
-    public function invalidateUserGroupsCache()
-    {
-		$this->userGroups = null;
-    }
-    
 	/**
 	 * Adds the user to the given group.
 	 *
@@ -519,8 +504,7 @@ class User extends Model implements UserInterface {
 		if ( ! $this->inGroup($group))
 		{
 			$this->groups()->attach($group);
-			$this->invalidateUserGroupsCache();
-			$this->invalidateMergedPermissionsCache();
+			$this->userGroups = null;
 		}
 
 		return true;
@@ -537,8 +521,7 @@ class User extends Model implements UserInterface {
 		if ($this->inGroup($group))
 		{
 			$this->groups()->detach($group);
-			$this->invalidateUserGroupsCache();
-			$this->invalidateMergedPermissionsCache();
+			$this->userGroups = null;
 		}
 
 		return true;
@@ -654,7 +637,7 @@ class User extends Model implements UserInterface {
 					$checkPermission = substr($permission, 0, -1);
 
 					// We will make sure that the merged permission does not
-					// exactly match our permission, but starts with it.
+					// exactly match our permission, but starts wtih it.
 					if ($checkPermission != $mergedPermission and starts_with($mergedPermission, $checkPermission) and $value == 1)
 					{
 						$matched = true;
@@ -697,7 +680,7 @@ class User extends Model implements UserInterface {
 						$checkMergedPermission = substr($mergedPermission, 0, -1);
 
 						// We will make sure that the merged permission does not
-						// exactly match our permission, but starts with it.
+						// exactly match our permission, but starts wtih it.
 						if ($checkMergedPermission != $permission and starts_with($permission, $checkMergedPermission) and $value == 1)
 						{
 							$matched = true;
@@ -755,14 +738,14 @@ class User extends Model implements UserInterface {
 	 */
 	public function recordLogin()
 	{
-		$this->last_login = $this->freshTimestamp();
+		$this->last_login = new DateTime;
 		$this->save();
 	}
 
 	/**
 	 * Returns the relationship between users and groups.
 	 *
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
 	 */
 	public function groups()
 	{

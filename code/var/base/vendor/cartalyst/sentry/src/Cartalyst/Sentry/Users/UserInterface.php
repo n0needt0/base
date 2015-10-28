@@ -163,7 +163,7 @@ interface UserInterface {
 	public function checkResetPasswordCode($resetCode);
 
 	/**
-	 * Attempts to reset a user's password by matching
+	 * Attemps to reset a user's password by matching
 	 * the reset code generated with the user's.
 	 *
 	 * @param  string  $resetCode

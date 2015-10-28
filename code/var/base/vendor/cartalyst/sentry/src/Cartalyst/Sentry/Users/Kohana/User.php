@@ -363,7 +363,7 @@ class User extends \ORM implements UserInterface {
 			return false;
 		}
 
-		return $persistCode == $this->persist_code;
+		return $persistCode === $this->persist_code;
 	}
 
 	/**
@@ -445,7 +445,7 @@ class User extends \ORM implements UserInterface {
 	}
 
 	/**
-	 * Attempts to reset a user's password by matching
+	 * Attemps to reset a user's password by matching
 	 * the reset code generated with the user's.
 	 *
 	 * @param  string  $resetCode
@@ -882,7 +882,7 @@ class User extends \ORM implements UserInterface {
 			->from($this->_table_name)
 			->where($field, '=', $value)
 			->where($this->_primary_key, '!=', $this->pk())
-			->execute($this->_db)
+			->execute()
 			->get('total_count');
 
 		return ($total == 0);
