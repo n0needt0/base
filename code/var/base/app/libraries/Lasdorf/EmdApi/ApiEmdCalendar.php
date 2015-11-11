@@ -253,9 +253,9 @@ Class ApiEmdCalendar extends EmdBase{
 
         if( $res = mail($email, $subject, $message, $headers) )
         {
-            if ($r->appointment_type == 'P&S Exam')
+            if ($r->appointment_type == 'P&S Exam' || $r->appointment_type == 'Agreed Medical Evaluation' || $r->appointment_type == 'Panel Qualified Medical Evaluation' || $r->appointment_type == 'Qualified Medical Evaluation' || $r->appointment_type == 'Comprehensive Medical Evaluation' || $r->appointment_type == 'Qualified Medical Evaluation Appointment')
             {
-                 mail('kyawary@helppain.net', $subject, $message, $headers);
+                 mail('yawary.cal@helppain.net', $subject, $message, $headers);
             }
             //set cache only if sent
             \Log::info("eMailed " . print_r(array("email"=>$email, "subject"=>$subject, "message"=>$message, "headers"=>$headers), true));
