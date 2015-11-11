@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB as DB;
 use Illuminate\Support\Facades\Redis as Redis;
 use Illuminate\Support\Facades\Config as Config;
 use Illuminate\Log;
+use League\Csv\Writer;
 
 
 Class EmdApi extends EmdBase{
@@ -42,8 +43,20 @@ Class EmdApi extends EmdBase{
     }
 
     static public function save_table_to_csv($table, $path){
-        // $this->getConnection()->getSchemaBuilder()->getColumnListing($table)
+        $csv = Writer::createFromFileObject(new SplTempFileObject());
 
+         $res = DB::connection('emds')
+                    ->table($table)
+                    ->get();
+
+        $csv->insertOne(DB::connection('emds')->getColumnListing($table));
+
+        $res->each(function($line) use($csv) {
+            $csv->insertOne($line->toArray());
+        });
+
+        $csv->output("$path$table.csv");
+        return;
     }
 
     /**
