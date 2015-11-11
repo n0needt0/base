@@ -1524,12 +1524,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "22db6ac518817c5459e704dbd21727777a764f32"
+                "reference": "a5eb815363c0388e83247e7e9853e5dbc14999cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/22db6ac518817c5459e704dbd21727777a764f32",
-                "reference": "22db6ac518817c5459e704dbd21727777a764f32",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/a5eb815363c0388e83247e7e9853e5dbc14999cc",
+                "reference": "a5eb815363c0388e83247e7e9853e5dbc14999cc",
                 "shasum": ""
             },
             "require": {
@@ -1555,7 +1555,10 @@
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\EventDispatcher\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1573,7 +1576,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-20 17:27:01"
+            "time": "2015-10-30 20:15:42"
         },
         {
             "name": "symfony/filesystem",
@@ -1581,12 +1584,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "ea5234f76d21b9960fe838114a39d56aa05516bb"
+                "reference": "8dd0a63b01717b8685f7662ab4bde0c5e49b3928"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/ea5234f76d21b9960fe838114a39d56aa05516bb",
-                "reference": "ea5234f76d21b9960fe838114a39d56aa05516bb",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/8dd0a63b01717b8685f7662ab4bde0c5e49b3928",
+                "reference": "8dd0a63b01717b8685f7662ab4bde0c5e49b3928",
                 "shasum": ""
             },
             "require": {
@@ -1601,7 +1604,10 @@
             "autoload": {
                 "psr-4": {
                     "Symfony\\Component\\Filesystem\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1619,7 +1625,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-18 20:23:24"
+            "time": "2015-11-09 15:11:40"
         },
         {
             "name": "symfony/finder",
