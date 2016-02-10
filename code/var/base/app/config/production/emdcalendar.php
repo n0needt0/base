@@ -11,7 +11,8 @@ return  array(
                                 "Corona, Marta Elena"=>array('email'=>'corona.marta.cal@helppain.net'),
                                 "Kinsman, Sean"=>array('email'=>'kinsman.sean.cal@helppain.net'),
                                 "Cluff, Robert S."=>array('email'=>'cluff.robert.cal@helppain.net'),
-                                "Analgesic Adherence Program San Mateo"=>array('email'=>'jsanchez@helppain.net')
+                                "Analgesic Adherence Program San Mateo"=>array('email'=>'jsanchez@helppain.net'),
+                                 "Remote Analgesic Adherence Program"=>array('email'=>'cglidewell@helppain.net')
                 ),
 );
 
