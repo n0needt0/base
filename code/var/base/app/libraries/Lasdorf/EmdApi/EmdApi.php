@@ -42,6 +42,9 @@ Class EmdApi extends EmdBase{
         \Log::info("stored $key for $ttl sec");
     }
 
+    /*
+     *   Move data from table to csv
+     *   */
     static public function save_table_to_csv($table, $path){
         $csv = Writer::createFromFileObject(new SplTempFileObject());
 

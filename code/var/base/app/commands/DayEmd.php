@@ -46,7 +46,8 @@ class DayEmd extends Command {
         return;
     }
 
-    /**
+
+        /**
      * Execute the console command.
      *
      * @return void
@@ -62,6 +63,22 @@ class DayEmd extends Command {
         }
 
         try{
+
+            $tables_to_export = Config::get('dailyemd.revenueiq.include_tables');
+
+             $dir.='/tmp/revenueiq';
+            if (!is_dir($dir)){
+                mkdir($dir, 0700);
+            }else{
+                //clean
+                array_map('unlink', glob("$dir/*"));
+            }
+
+            foreach ($tables_to_export as $table) {
+                EmdApi::save_table_to_csv($table, "/tmp/");
+            }
+
+
 
             $res = EmdApi::get_filtered( array('payment_ar::'), 'WEEK');
             $ar_buckets = Config::get('dailyemd.billing.ar_buckets');

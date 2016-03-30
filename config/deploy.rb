@@ -114,6 +114,11 @@ namespace :deploy do
      task :get_correct_apache_conf do
      sudo "mv #{deploy_to}/current/code/etc/apache2/sites-enabled/#{stage}.#{application_name} /etc/apache2/sites-enabled/#{application_name}"
   end
+  
+  desc "get pemfile"
+     task :get_pemfile do
+     sudo "mv #{deploy_to}/current/code/etc/ftpuser.pem /etc/"
+  end
 
   desc "Reload Apache"
   task :reload_apache do
@@ -135,6 +140,9 @@ after 'deploy','deploy:get_correct_config'
 
 #get correct deploy apache conf version
 after 'deploy','deploy:get_correct_apache_conf'
+
+#get pemfile
+after 'deploy','deploy:get_pemfile'
 
 #change permission to www-data user
 after 'deploy', 'deploy:publish_revision'
