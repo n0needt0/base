@@ -46,7 +46,7 @@ Class EmdApi extends EmdBase{
      *   Move data from table to csv
      *   */
     static public function save_table_to_csv($table, $path){
-        $csv = Writer::createFromFileObject(new SplTempFileObject());
+        $csv =\League\Csv\Writer::createFromFileObject(new \SplTempFileObject());
 
          $res = DB::connection('emds')
                     ->table($table)
