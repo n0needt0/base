@@ -66,7 +66,7 @@ class DayEmd extends Command {
 
             $tables_to_export = Config::get('dailyemd.revenueiq.include_tables');
 
-             $dir.='/tmp/revenueiq';
+             $dir='/tmp/revenueiq';
             if (!is_dir($dir)){
                 mkdir($dir, 0700);
             }else{
