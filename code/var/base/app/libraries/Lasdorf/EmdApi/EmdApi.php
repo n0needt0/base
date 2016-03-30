@@ -59,8 +59,10 @@ Class EmdApi extends EmdBase{
 
          \Log::info("take 2");
 
+         $res = $res->toArray();
+
          foreach($res as $line){
-             $csv->insertOne($line->to_array());
+             $csv->insertOne($line);
         }
         \Log::info("take 3");
 
