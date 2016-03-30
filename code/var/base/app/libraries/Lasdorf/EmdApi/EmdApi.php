@@ -55,13 +55,13 @@ Class EmdApi extends EmdBase{
                     ->take(10)
                     ->get();
         \Log::info("take 1");
-         $csv->insertOne(\Schema::getColumnListing($table));
+
+        $csv->insertOne(\Schema::getColumnListing($table));
 
          \Log::info("take 2");
 
-         $res = $res->toArray();
-
          foreach($res as $line){
+             $line = json_decode(json_encode($line), true);
              $csv->insertOne($line);
         }
         \Log::info("take 3");
