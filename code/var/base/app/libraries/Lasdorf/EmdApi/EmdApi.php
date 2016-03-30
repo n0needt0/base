@@ -52,11 +52,11 @@ Class EmdApi extends EmdBase{
                     ->table($table)
                     ->get();
 
-    //    $csv->insertOne(\DB::connection('emds')->getColumnListing($table));
+         $csv->insertOne(\Schema::getColumnListing($table));
 
-        $res->each(function($line) use($csv) {
-            $csv->insertOne($line->toArray());
-        });
+         foreach($res as $line){
+             $csv->insertOne($line->toArray());
+        }
 
         $csv->output("$path$table.csv");
         return;
