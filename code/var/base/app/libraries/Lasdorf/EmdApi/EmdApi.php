@@ -55,7 +55,7 @@ Class EmdApi extends EmdBase{
          $csv->insertOne(\Schema::getColumnListing($table));
 
          foreach($res as $line){
-             $csv->insertOne($line->toArray());
+             $csv->insertOne($line->to_array());
         }
 
         $csv->output("$path$table.csv");
