@@ -51,7 +51,7 @@ Class EmdApi extends EmdBase{
 
         $csv =\League\Csv\Writer::createFromFileObject(new \SplTempFileObject());
 
-        $query = "SELECT column_name FROM emds.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'".$table."'";
+        $query = "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='".$table."'";
 
         $headers = DB::select( DB::raw($query));
 
