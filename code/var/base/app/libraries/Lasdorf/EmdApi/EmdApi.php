@@ -49,29 +49,42 @@ Class EmdApi extends EmdBase{
 
         \Log::info("processing $table");
 
-        $csv =\League\Csv\Writer::createFromFileObject(new \SplTempFileObject());
+        $out = "";
 
         $query = "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='".$table."'";
+        $res = DB::select( DB::raw($query));
 
-
-        $headers = DB::select( DB::raw($query));
-
-        //$res = DB::connection('emds')->table($table)->get();
-
-        \Log::info(print_r($headers, true));
-
-        $csv->insertOne($headers);
-/*
-         foreach($res as $line){
-             $line = json_decode(json_encode($line), true);
-             $csv->insertOne($line);
+        foreach($res as $r) {
+            foreach((array) $r AS $key => $value){
+                //If the character " exists, then escape it, otherwise the csv file will be invalid.
+                    $pos = strpos($value, '"');
+                    if ($pos !== false) {
+                        $value = str_replace('"', '\"', $value);
+                    }
+                    $out .= '"'.$value.'",';
+            }
+            $out .= "\n";
         }
-        */
+
+        $res = DB::connection('emds')->table($table)->get();
+
+        foreach($res as $r) {
+            foreach((array) $r AS $key => $value){
+                //If the character " exists, then escape it, otherwise the csv file will be invalid.
+                    $pos = strpos($value, '"');
+                    if ($pos !== false) {
+                        $value = str_replace('"', '\"', $value);
+                    }
+                    $out .= '"'.$value.'",';
+            }
+            $out .= "\n";
+        }
+
         \Log::info("saving to $path$table.csv");
 
 //SAVE HERE
-        $csv->output("$path$table.csv");
-
+        file_put_contents("$path$table.csv", $out);
+        return;
     }
 
     /**
