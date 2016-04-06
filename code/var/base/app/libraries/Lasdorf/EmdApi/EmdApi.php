@@ -51,26 +51,26 @@ Class EmdApi extends EmdBase{
 
         $csv =\League\Csv\Writer::createFromFileObject(new \SplTempFileObject());
 
-         $res = DB::connection('emds')
-                    ->table($table)
-                    ->take(10)
-                    ->get();
+        $query = "SELECT column_name FROM emds.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'".$table."'";
 
-        $headers = \Schema::getColumnListing($table);
+        $headers = DB::select( DB::raw($query));
+
+        //$res = DB::connection('emds')->table($table)->get();
 
         \Log::info(print_r($headers, true));
 
         $csv->insertOne($headers);
-
+/*
          foreach($res as $line){
              $line = json_decode(json_encode($line), true);
              $csv->insertOne($line);
         }
+        */
         \Log::info("saving to $path$table.csv");
 
 //SAVE HERE
         $csv->output("$path$table.csv");
-       die;
+
     }
 
     /**
