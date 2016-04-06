@@ -186,7 +186,7 @@ trait Output
         if (! empty($bom)) {
             $csv->fseek(mb_strlen($input_bom));
         }
-        echo $bom;
+
         $res = $csv->fpassthru();
 
         return $res + strlen($bom);
