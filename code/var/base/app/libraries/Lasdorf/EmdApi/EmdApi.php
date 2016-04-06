@@ -48,23 +48,26 @@ Class EmdApi extends EmdBase{
     static public function save_table_to_csv($table, $path){
 
         \Log::info("processing $table");
+
         $csv =\League\Csv\Writer::createFromFileObject(new \SplTempFileObject());
 
          $res = DB::connection('emds')
                     ->table($table)
                     ->take(10)
                     ->get();
-        \Log::info("take 1");
 
-        $csv->insertOne(\Schema::getColumnListing($table));
+        $headers = \Schema::getColumnListing($table);
 
-         \Log::info("take 2");
+        \Log::info(print_r($headers, true));
+
+        $csv->insertOne($headers);
 
          foreach($res as $line){
              $line = json_decode(json_encode($line), true);
              $csv->insertOne($line);
         }
-        \Log::info("take 3");
+        \Log::info("saving to $path$table.csv");
+
 //SAVE HERE
         $csv->output("$path$table.csv");
        die;

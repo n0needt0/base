@@ -66,16 +66,16 @@ class DayEmd extends Command {
 
             $tables_to_export = Config::get('dailyemd.revenueiq.include_tables');
 
-             $dir='/tmp/revenueiq';
+             $dir='/tmp/revenueiq/';
             if (!is_dir($dir)){
                 mkdir($dir, 0700);
             }else{
                 //clean
-                array_map('unlink', glob("$dir/*"));
+                array_map('unlink', glob("$dir*"));
             }
 
             foreach ($tables_to_export as $table) {
-                EmdApi::save_table_to_csv($table, "/tmp/");
+                EmdApi::save_table_to_csv($table, $dir);
             }
 
 
