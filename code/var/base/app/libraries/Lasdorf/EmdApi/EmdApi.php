@@ -66,6 +66,7 @@ Class EmdApi extends EmdBase{
             $out .= "\n";
         }
 
+
         $res = DB::connection('emds')->table($table)->get();
 
         foreach($res as $r) {
