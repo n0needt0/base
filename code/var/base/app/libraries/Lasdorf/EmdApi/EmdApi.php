@@ -54,17 +54,15 @@ Class EmdApi extends EmdBase{
         $query = "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='".$table."'";
         $res = DB::select( DB::raw($query));
 
-        foreach($res as $r) {
-            foreach((array) $r AS $key => $value){
+        foreach($res as $key => $value) {
                 //If the character " exists, then escape it, otherwise the csv file will be invalid.
                     $pos = strpos($value, '"');
                     if ($pos !== false) {
                         $value = str_replace('"', '\"', $value);
                     }
                     $out .= '"'.$value.'",';
-            }
-            $out .= "\n";
         }
+        $out .= "\n";
 
 
         $res = DB::connection('emds')->table($table)->get();
