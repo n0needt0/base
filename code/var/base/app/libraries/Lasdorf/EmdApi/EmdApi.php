@@ -53,6 +53,7 @@ Class EmdApi extends EmdBase{
 
         $query = "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='".$table."'";
 
+
         $headers = DB::select( DB::raw($query));
 
         //$res = DB::connection('emds')->table($table)->get();
