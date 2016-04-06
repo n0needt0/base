@@ -65,9 +65,9 @@ Class EmdApi extends EmdBase{
              $csv->insertOne($line);
         }
         \Log::info("take 3");
-
+//SAVE HERE
         $csv->output("$path$table.csv");
-        return;
+       die;
     }
 
     /**
