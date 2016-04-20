@@ -89,7 +89,7 @@ class DayEmd extends Command {
                     $cnt = file_get_contents($md5file);
                 }
 
-                $cnt .= md5_file($f) . "\n";
+                $cnt .= $f . "\t" . md5_file($f) . "\n";
                 file_put_contents($md5file, $cnt);
             }
 
