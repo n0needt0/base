@@ -67,6 +67,10 @@ class DayEmd extends Command {
             $tables_to_export = Config::get('dailyemd.revenueiq.include_tables');
 
              $dir='/tmp/revenueiq/';
+             $md5file = $dir . "checklist.md5";
+              unlink($md5file);
+              touch($md5file);
+
             if (!is_dir($dir)){
                 mkdir($dir, 0700);
             }else{
@@ -75,8 +79,15 @@ class DayEmd extends Command {
             }
 
             foreach ($tables_to_export as $table) {
-                EmdApi::save_table_to_csv($table, $dir);
+                $f = EmdApi::save_table_to_csv($table, $dir);
+                $cnt = file_get_contents($md5file);
+                $cnt .= md5_file($f) . "\n";
+                file_put_contents($md5file, $cnt);
             }
+
+            //zip
+            //md5
+            //scp to server
 
 
 

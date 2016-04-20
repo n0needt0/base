@@ -54,6 +54,7 @@ Class EmdApi extends EmdBase{
         $query = "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='".$table."'";
         $res = DB::select( DB::raw($query));
 
+
         foreach($res as $r) {
             \Log::info($r->column_name);
 
@@ -84,8 +85,11 @@ Class EmdApi extends EmdBase{
         \Log::info("saving to $path$table.csv");
 
 //SAVE HERE
-        file_put_contents("$path$table.csv", $out);
-        return;
+       $saveto = "$path$table.csv";
+
+        file_put_contents($saveto, $out);
+
+        return $saveto;
     }
 
     /**
