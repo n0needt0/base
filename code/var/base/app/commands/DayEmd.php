@@ -68,7 +68,10 @@ class DayEmd extends Command {
 
              $dir='/tmp/revenueiq/';
              $md5file = $dir . "checklist.md5";
-              unlink($md5file);
+             if (file_exists($md5file))
+             {
+               unlink($md5file);
+             }
               touch($md5file);
 
             if (!is_dir($dir)){
