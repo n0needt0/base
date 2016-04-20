@@ -72,7 +72,6 @@ class DayEmd extends Command {
              {
                unlink($md5file);
              }
-              touch($md5file);
 
             if (!is_dir($dir)){
                 mkdir($dir, 0700);
@@ -83,7 +82,13 @@ class DayEmd extends Command {
 
             foreach ($tables_to_export as $table) {
                 $f = EmdApi::save_table_to_csv($table, $dir);
-                $cnt = file_get_contents($md5file);
+                $cnt = "";
+
+                if (file_exists($md5file))
+                {
+                    $cnt = file_get_contents($md5file);
+                }
+
                 $cnt .= md5_file($f) . "\n";
                 file_put_contents($md5file, $cnt);
             }
