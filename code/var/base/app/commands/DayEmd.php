@@ -91,11 +91,40 @@ class DayEmd extends Command {
 
                 $cnt .= $f . "\t" . md5_file($f) . "\n";
                 file_put_contents($md5file, $cnt);
+
+                $this->info("DEBUG: $table done" );
             }
 
             //zip
-            //md5
+        $zipfile = '/tmp/HELP' . date('Ymd') . '.zip';
+
+        $zip = new ZipArchive;
+        if ($zip->open($zipfile) === TRUE) {
+
+
+            $handle = opendir($dir);
+            while (false !== $f = readdir($handle)) {
+              if ($f != '.' && $f != '..') {
+                $filePath = "$dir/$f";
+                // Remove prefix from file path before add to zip.
+                $localPath = substr($filePath, $exclusiveLength);
+                if (is_file($filePath)) {
+                  $zipFile->addFile($filePath, $localPath);
+                }
+              }
+            }
+            closedir($handle);
+
+
+            $zip->close();
+
             //scp to server
+
+        } else {
+             $this->info("DEBUG: rev zip failed" );
+             exit(1);
+        }
+
 
 
 
