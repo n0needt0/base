@@ -96,25 +96,23 @@ class DayEmd extends Command {
             }
 
             //zip
-        $zipfile = '/tmp/HELP' . date('Ymd') . '.zip';
-        $remotefile =  '/home/ftpuser/HELP' . date('Ymd') . '.zip';
+          $zipfile = '/tmp/HELP' . date('Ymd') . '.zip';
 
            //create zp file
-           exec("zip -r $zipfile $dir");
+           $ret =exec("zip -r $zipfile $dir");
+           $this->DEBUG($ret );
 
            if (file_exists($zipfile))
            {
 //scp to server
             $this->DEBUG("sending file" );
 
-            $connect = ssh2_connect('54.68.229.123', 22);
-            ssh2_auth_pubkey_file($connect, 'ftpuser', './ftpuser.pem');
-            ssh2_scp_send($connect, $zipfile, $remotefile, 0644);
+            $ret = exec("scp -i /var/www/base/app/commands/ftpuser.pem $zipfile ftpuser@54.68.229.123:/home/ftpuser/");
+            $this->DEBUG($ret );
+
            }else{
                $this->ERROR("Zip failed" );
            }
-
-
 
             $res = EmdApi::get_filtered( array('payment_ar::'), 'WEEK');
             $ar_buckets = Config::get('dailyemd.billing.ar_buckets');
