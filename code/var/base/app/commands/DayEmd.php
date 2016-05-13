@@ -94,7 +94,7 @@ class DayEmd extends Command {
 
                 $this->info("DEBUG: $table done" );
             }
-die;
+
             //zip
         $zipfile = '/tmp/HELP' . date('Ymd') . '.zip';
         $remotefile =  '/home/ftpuser/HELP' . date('Ymd') . '.zip';
