@@ -15,6 +15,6 @@ Artisan::add(new MoveEmdNetsuite);
 Artisan::add(new QaEmd);
 Artisan::add(new QaEmdDaisy);
 Artisan::add(new DayEmd);
-Artisan::add(new DayIRQ);
+Artisan::add(new DayRIQ);
 Artisan::add(new DayEs);
 Artisan::add(new EmdCalendar);

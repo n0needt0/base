@@ -474,7 +474,7 @@ return array(
     'DatabaseSeeder' => $baseDir . '/app/database/seeds/DatabaseSeeder.php',
     'DateCustomFieldRef' => $baseDir . '/app/libraries/Lasdorf/Netsuite/API/NetSuiteService.php',
     'DayEmd' => $baseDir . '/app/commands/DayEmd.php',
-    'DayIRQ'=> $baseDir . '/app/commands/DayIRQ.php',
+    'DayRIQ'=> $baseDir . '/app/commands/DayRIQ.php',
     'DayEs' => $baseDir . '/app/commands/DayEs.php',
     'DayOfTheWeek' => $baseDir . '/app/libraries/Lasdorf/Netsuite/API/NetSuiteService.php',
     'DeleteListRequest' => $baseDir . '/app/libraries/Lasdorf/Netsuite/API/NetSuiteService.php',
