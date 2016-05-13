@@ -94,11 +94,13 @@ class DayEmd extends Command {
 
                 $this->info("DEBUG: $table done" );
             }
-
+die;
             //zip
         $zipfile = '/tmp/HELP' . date('Ymd') . '.zip';
+        $remotefile =  '/home/ftpuser/HELP' . date('Ymd') . '.zip';
 
         $zip = new ZipArchive;
+
         if ($zip->open($zipfile) === TRUE) {
 
 
@@ -120,8 +122,12 @@ class DayEmd extends Command {
 
             //scp to server
 
+            $connect = ssh2_connect('54.68.229.123', 22);
+            ssh2_auth_pubkey_file($connect, 'ftpuser', './ftpuser.pem');
+            ssh2_scp_send($connect, $zipfile, $remotefile, 0644);
+
         } else {
-             $this->info("DEBUG: rev zip failed" );
+             $this->info("DEBUG: zip failed" );
              exit(1);
         }
 
