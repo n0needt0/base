@@ -33,5 +33,9 @@ COMMAND="php /var/www/base/artisan command:emdcalendar --env=production && curl 
 ENTRY="*/5 * * * * $COMMAND"; 
 echo "$ENTRY" >> $FILE; 
 
+COMMAND="php /var/www/base/artisan command:dayriq --env=production && curl \"http://www.cronrat.com/r/7n9GvvYu\" --data-urlencode \"rat=dayriq\" --data-urlencode \"crontab=0 1 * * 1,2,3,4,5\" --data-urlencode \"toutc=-7\""; 
+ENTRY="0 2 * * 1,2,3,4,5 $COMMAND"; 
+echo "$ENTRY" >> $FILE; 
+
 crontab $FILE;
 rm $FILE
