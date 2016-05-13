@@ -99,38 +99,20 @@ class DayEmd extends Command {
         $zipfile = '/tmp/HELP' . date('Ymd') . '.zip';
         $remotefile =  '/home/ftpuser/HELP' . date('Ymd') . '.zip';
 
-        $zip = new ZipArchive;
+           //create zp file
+           exec("zip -r $zipfile $dir");
 
-        if ($zip->open($zipfile) === TRUE) {
-
-
-            $handle = opendir($dir);
-            while (false !== $f = readdir($handle)) {
-              if ($f != '.' && $f != '..') {
-                $filePath = "$dir/$f";
-                // Remove prefix from file path before add to zip.
-                $localPath = substr($filePath, $exclusiveLength);
-                if (is_file($filePath)) {
-                  $zipFile->addFile($filePath, $localPath);
-                }
-              }
-            }
-            closedir($handle);
-
-
-            $zip->close();
-
-            //scp to server
+           if (file_exists($zipfile))
+           {
+//scp to server
+            $this->DEBUG("sending file" );
 
             $connect = ssh2_connect('54.68.229.123', 22);
             ssh2_auth_pubkey_file($connect, 'ftpuser', './ftpuser.pem');
             ssh2_scp_send($connect, $zipfile, $remotefile, 0644);
-
-        } else {
-             $this->info("DEBUG: zip failed" );
-             exit(1);
-        }
-
+           }else{
+               $this->ERROR("Zip failed" );
+           }
 
 
 
