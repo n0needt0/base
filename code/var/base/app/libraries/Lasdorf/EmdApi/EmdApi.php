@@ -69,8 +69,6 @@ Class EmdApi extends EmdBase{
 
         $res = DB::connection('emds')->table($table)->get();
 
-        next;
-
         foreach($res as $r) {
             foreach((array) $r AS $key => $value){
                 //If the character " exists, then escape it, otherwise the csv file will be invalid.
