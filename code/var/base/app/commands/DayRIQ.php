@@ -100,17 +100,17 @@ class DayRIQ extends Command {
 
            //create zp file
 
-          $this->DEBUG("RUNNING zip -r $zipfile $dir");
+          $this->DEBUG("RUNNING /usr/bin/zip -r $zipfile $dir");
 
-           $ret =exec("zip -r $zipfile $dir");
+           $ret =exec("/usr/bin/zip -r $zipfile $dir");
            $this->DEBUG($ret );
 
            if (file_exists($zipfile))
            {
 //scp to server
             $this->DEBUG("sending file" );
-            $this->DEBUG("RUNNING scp -i /var/www/base/app/commands/ftpuser.pem $zipfile ftpuser@54.68.229.123:/home/ftpuser/");
-            $ret = exec("scp -i /var/www/base/app/commands/ftpuser.pem $zipfile ftpuser@54.68.229.123:/home/ftpuser/");
+            $this->DEBUG("RUNNING /usr/bin/scp -i /var/www/base/app/commands/ftpuser.pem $zipfile ftpuser@54.68.229.123:/home/ftpuser/");
+            $ret = exec("/usr/bin/scp -i /var/www/base/app/commands/ftpuser.pem $zipfile ftpuser@54.68.229.123:/home/ftpuser/");
             $this->DEBUG($ret );
 
            }else{
